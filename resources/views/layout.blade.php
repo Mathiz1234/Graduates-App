@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Absolwenci</title>
+        <meta name="description" content="Wyszukaj absolwenta swojej szkoły!"/>
+        <meta name="keywords" content="absolwent, absolwenci, szkoła, dane, ukończenie, system, tabele, spis uczniów, uczniowie, uczeń"/>
+        <meta http-equiv="X-UA-Compatibile" content="IE=edge,chrome=1"/>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <link rel= "stylesheet" href= "{{ asset('css/app.css') }}" type="text/css"/>
+
+    </head>
+    <body>
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{{ route('main') }}">
+              <i class="fas fa-user-graduate d-inline-block align-text-bottom mr-1"></i>
+              ABSOLWENCI</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+              <li class="nav-item @if( $page == 'main' ) active @endif">
+                  <a class="nav-link" href="{{ route('main') }}"><i class="fas fa-home mr-1"></i>Strona główna @if( $page == 'main' ) <span class="sr-only">(tu jesteś)</span> @endif</a>
+                </li>
+                <li class="nav-item @if( $page == 'rules' ) active @endif">
+                    <a class="nav-link" href="{{ route('rules') }}"><i class="fas fa-file-alt mr-1"></i>Regulamin @if( $page == 'rules' ) <span class="sr-only">(tu jesteś)</span> @endif</a>
+                  </li>
+              </ul>
+              @if (Route::has('login'))
+                <div class="ml-auto">
+                    @auth
+                        <a class="btn btn-outline-success my-2 my-sm-0" href="{{ route('main') }}">Home</a>
+                    @else
+                        <a class="btn btn-outline-success my-2 my-sm-0" href="{{ route('login') }}">Zaloguj się</a>
+
+                        @if (Route::has('register'))
+                            <a class="btn btn-outline-success my-2 my-sm-0"href="{{ route('register') }}">Zarejestuj się</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
+            </div>
+        </nav>
+
+        <main>
+
+          <div class="container">
+            @yield('content')
+          </div>
+
+        </main>
+
+        <footer>
+          <div class="footer mt-auto py-3 border shadow-sm">
+            <div class="container text-center">
+              <p class="text-muted"><i class="mr-2 fas fa-user-graduate"></i>System absolwentów. &copy 2019 Wszelkie prawa zastrzeżone. Autor: Mateusz Sutor</p>
+            </div>
+         </div>
+        </footer>
+
+        <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+
+    </body>
+</html>

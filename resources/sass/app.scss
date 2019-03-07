@@ -1,6 +1,6 @@
 
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Lato|Roboto+Condensed:700&subset=latin-ext');
 
 // Variables
 @import 'variables';
@@ -8,7 +8,52 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+//Fontawesome
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+
+@function calc-add-px($some-number, $another-number : 0){
+  @return $some-number + $another-number + px;
 }
+
+body{
+  background-image: url($img-path);
+  /* Background pattern from Toptal Subtle Patterns */
+  font-family: $default-font;
+  //font-family: $header-font;
+}
+
+.navbar, .v-b-font{
+  font-family: $header-font;
+  letter-spacing: 2px;
+}
+
+/* Sticky footer styles------------------------ */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: calc-add-px($footer-height, 20);
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: calc-add-px($footer-height, 20);
+  background-color: $white;
+}
+
+@include media-breakpoint-up(md) {
+  body {
+    /* Margin bottom by footer height */
+    margin-bottom: calc-add-px($footer-height);
+  }
+  .footer {
+    /* Set the fixed height of the footer here */
+    height: calc-add-px($footer-height);
+  }
+}
+/*-------------------------------------------*/

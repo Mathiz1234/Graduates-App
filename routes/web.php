@@ -12,8 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('layouts.welcome', ['page' => 'main']);
+})->name('main');
+
+Route::get('/rules', function () {
+    return view('layouts.rules', ['page' => 'rules']);
+})->name('rules');
 
 Auth::routes();
 
