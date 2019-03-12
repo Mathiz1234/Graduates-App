@@ -23,17 +23,34 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav">
-              <li class="nav-item @if( $page == 'main' ) active @endif">
-                  <a class="nav-link" href="{{ route('main') }}"><i class="fas fa-home mr-1"></i>Strona główna @if( $page == 'main' ) <span class="sr-only">(tu jesteś)</span> @endif</a>
+              <li class="nav-item @isset($page) @if( $page == 'main' ) active @endif @endisset">
+                  <a class="nav-link" href="{{ route('main') }}"><i class="fas fa-home mr-1"></i>Strona główna @isset($page) @if( $page == 'main' ) <span class="sr-only">(tu jesteś)</span> @endif @endisset</a>
                 </li>
-                <li class="nav-item @if( $page == 'rules' ) active @endif">
-                    <a class="nav-link" href="{{ route('rules') }}"><i class="fas fa-file-alt mr-1"></i>Regulamin @if( $page == 'rules' ) <span class="sr-only">(tu jesteś)</span> @endif</a>
+                <li class="nav-item @isset($page) @if( $page == 'rules' ) active @endif @endisset">
+                    <a class="nav-link" href="{{ route('rules') }}"><i class="fas fa-file-alt mr-1"></i>Regulamin @isset($page) @if( $page == 'rules' ) <span class="sr-only">(tu jesteś)</span> @endif @endisset</a>
                   </li>
               </ul>
               @if (Route::has('login'))
                 <div class="ml-auto">
                     @auth
-                        <a class="btn btn-outline-success my-2 my-sm-0" href="{{ route('main') }}">Home</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Konto
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-lg-right">
+                              <a class="dropdown-item" href="#">Mój profil</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Wyloguj się
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                            </div>
+                          </div>
                     @else
                         <a class="btn btn-outline-success my-2 my-sm-0" href="{{ route('login') }}">Zaloguj się</a>
 
