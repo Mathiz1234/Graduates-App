@@ -26,6 +26,9 @@
               <li class="nav-item @isset($page) @if( $page == 'main' ) active @endif @endisset">
                   <a class="nav-link" href="{{ route('main') }}"><i class="fas fa-home mr-1"></i>Strona główna @isset($page) @if( $page == 'main' ) <span class="sr-only">(tu jesteś)</span> @endif @endisset</a>
                 </li>
+                <li class="nav-item @isset($page) @if( $page == 'search' ) active @endif @endisset">
+                  <a class="nav-link" href="#"><i class="fas fa-search mr-1"></i>Przeszukaj @isset($page) @if( $page == 'search' ) <span class="sr-only">(tu jesteś)</span> @endif @endisset</a>
+                </li>
                 <li class="nav-item @isset($page) @if( $page == 'rules' ) active @endif @endisset">
                     <a class="nav-link" href="{{ route('rules') }}"><i class="fas fa-file-alt mr-1"></i>Regulamin @isset($page) @if( $page == 'rules' ) <span class="sr-only">(tu jesteś)</span> @endif @endisset</a>
                   </li>
@@ -74,7 +77,7 @@
         <footer>
           <div class="footer mt-auto py-3 border shadow-sm">
             <div class="container text-center">
-              <p class="text-muted"><i class="mr-2 fas fa-user-graduate"></i>System absolwentów. &copy 2019 Wszelkie prawa zastrzeżone. Autor: Mateusz Sutor</p>
+              <p class="text-muted"><i class="mr-2 fas fa-user-graduate"></i>System absolwentów. &copy 2019 Wszelkie prawa zastrzeżone. Autor: Mateusz Sutor <a href="{{route('rules')}}" target="_blank">Regulamin</a></p>
             </div>
          </div>
         </footer>

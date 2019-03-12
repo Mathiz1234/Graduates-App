@@ -4,7 +4,7 @@
 @section('content')
 
 
-<div class="card">
+<div class="card mt-3">
         <h1 class="text-uppercase text-center v-b-font">Regulamin</h1>
         <div class="card-body">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur temporibus nesciunt consequuntur magni facilis eaque consectetur omnis repudiandae iure, officiis dolores eius alias aut a molestiae maiores laboriosam natus quod?
