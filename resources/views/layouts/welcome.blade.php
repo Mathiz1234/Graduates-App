@@ -9,7 +9,7 @@
         <p class="lead">Przeszukuj spis absolwentów szkoły Staszica! Teraz to bardzo proste!</p>
         <hr class="my-4">
         <p>Aby w pełni moc korzystać z usługi, zaloguj się.</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">Przeszukaj teraz!</a>
+        <a class="btn btn-primary btn-lg" href="{{route('graduates.index')}}" role="button">Przeszukaj teraz!</a>
 </div>
 
 @endsection

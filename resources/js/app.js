@@ -31,3 +31,29 @@ require('./bootstrap');
 // const app = new Vue({
 //     el: '#app'
 // });
+
+//CollapseSearchBar
+
+$(document).ready(function(){
+
+    let w = $( window ).width();
+
+    if ($(window).width() >= 992){
+        $('#collapseSearchBar').collapse('show');
+    }
+
+    $(window).resize(function(){
+        if( w != $( window ).width() ){
+
+            w = $( window ).width();
+            if ($(window).width() >= 992){
+                $('#collapseSearchBar').collapse('show');
+                console.log('Show collapseSearchBar');
+            }
+            if ($(window).width() <= 992){
+                $('#collapseSearchBar').collapse('hide');
+                console.log('Hide collapseSearchBar');
+            }
+        }
+      });
+  });

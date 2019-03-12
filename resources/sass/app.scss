@@ -35,14 +35,14 @@ html {
 }
 body {
   /* Margin bottom by footer height */
-  margin-bottom: calc-add-px($footer-height, 20);
+  margin-bottom: calc-add-px($footer-height, 30);
 }
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: calc-add-px($footer-height, 20);
+  height: calc-add-px($footer-height, 30);
   background-color: $white;
 }
 
@@ -56,4 +56,11 @@ body {
     height: calc-add-px($footer-height);
   }
 }
+/*-------------------------------------------*/
+/*-----------CollapseSerachBar---------------*/
+
+#collapseSearchBar{
+  width: 100%;
+}
+
 /*-------------------------------------------*/

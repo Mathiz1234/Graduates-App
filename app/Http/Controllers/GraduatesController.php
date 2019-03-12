@@ -14,7 +14,7 @@ class GraduatesController extends Controller
      */
     public function index()
     {
-        //
+        return view('layouts.graduates.show', ['page' => 'search']);
     }
 
     /**
