@@ -20,7 +20,7 @@ class CreateGraduatesTable extends Migration
             $table->string('surname')->index();
             $table->year('mature_year')->index();
             $table->text('description')->nullable();
-            $table->string('avatar')->default('default.jpg');
+            $table->string('avatar')->default('default.png');
             $table->softDeletes();
             $table->timestamps();
         });

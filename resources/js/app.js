@@ -57,3 +57,27 @@ $(document).ready(function(){
         }
       });
   });
+
+//Graduate filters
+
+$(document).ready(function(){
+
+    let w = $( window ).width();
+
+    function setStickyTop(){
+        if ($(window).width() >= 992){
+            $('.filters').addClass('sticky-top');
+            console.log('Add sticky-top to filters search bar');
+        }else{
+            $('.filters').removeClass('sticky-top');
+            console.log('Remove sticky-top to filters search bar');
+        }
+    }
+
+    setStickyTop();
+
+    $(window).resize(function(){
+        setStickyTop();
+    })
+
+});

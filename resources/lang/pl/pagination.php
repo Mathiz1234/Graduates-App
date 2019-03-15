@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'name' => 'Pagination',
-    'previous' => '&laquo; Previous',
-    'next' => 'Next &raquo;',
+    'name' => 'Paginacja',
+    'previous' => 'Poprzednia strona',
+    'next' => 'Następna strona',
 
 ];

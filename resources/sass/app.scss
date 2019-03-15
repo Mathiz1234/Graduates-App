@@ -63,4 +63,20 @@ body {
   width: 100%;
 }
 
-/*-------------------------------------------*/
+/*---------------Main content----------------*/
+
+.graduate-card__avatar{
+  background-color: $gray;
+}
+
+@include media-breakpoint-up(sm) {
+
+  .graduate-card {
+
+    img{
+      border-radius: 50%;
+    }
+
+  }
+
+}
