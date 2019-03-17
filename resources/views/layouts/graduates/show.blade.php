@@ -12,23 +12,23 @@
     </button>
             <div class="collapse" id="collapseSearchBar">
             <div class="card card-body">
-                <form>
+            <form method="GET" action="{{ url('graduates') }}" autocomplete="on">
                     <div class="form-row text-left">
                         <div class="form-group col">
                             <label for="inputName">Imię</label>
-                            <input type="text" class="form-control" id="inputName" placeholder="Imię">
+                            <input type="text" class="form-control" id="inputName" placeholder="Imię" name="name" value="{{ old('name') }}">
                         </div>
                         <div class="form-group col">
                                 <label for="inputSurname">Nazwisko</label>
-                                <input type="text" class="form-control" id="inputSurname" placeholder="Nazwisko">
+                                <input type="text" class="form-control" id="inputSurname" placeholder="Nazwisko" name="surname" value="{{ old('surname') }}">
                         </div>
                         <div class="form-group col">
                                 <label for="inputMatureYear">Rok matury</label>
-                                <input type="number" min="1874" max="2099" step="1" class="form-control" id="inputMatureYear" placeholder="Rok matury">
+                                <input type="number" min="1874" max="2099" step="1" class="form-control" id="inputMatureYear" placeholder="Rok matury" name="mature_year" value={{ old('mature_year') }}>
                         </div>
                     </div>
                         <button type="submit" class="btn btn-primary"><i class="fas fa-search mr-2"></i>Szukaj</button>
-                </form>
+            </form>
             </div>
             </div>
     </div>
@@ -58,6 +58,17 @@
     </section>
 
     @endforeach
+
+    @if (count($graduates) == 0)
+
+    <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+        <strong>Brak wyników wyszukiwania</strong> Spróbuj poszukać czegoś innego
+        <button type="button" class="close" data-dismiss="alert" aria-label="@lang('general.close')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    @endif
 
     {{ $graduates->onEachSide(1)->links() }}
 

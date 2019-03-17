@@ -12,12 +12,31 @@ class GraduatesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $graduates = Graduate::getGraduates();
+        $data = [];
 
-        return view('layouts.graduates.show', ['
-            page' => 'search',
+        if ($request->has(['name', 'surname', 'mature_year'])) {
+            $data = $request->validate([
+
+                'name' => ['string', 'nullable'],
+
+                'surname' => ['string', 'nullable'],
+
+                'mature_year' => ['numeric', 'nullable']
+            ]);
+
+            $request->flash();
+        }
+
+        if (auth()->check()) {
+            $graduates = Graduate::getGraduates($data, false);
+        } else {
+            $graduates = Graduate::getGraduates($data);
+        }
+
+        return view('layouts.graduates.show', [
+            'page' => 'search',
             'graduates' => $graduates
         ]);
     }

@@ -27,4 +27,14 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function isModerator()
+    {
+        return $this->role == 2;
+    }
+
+    public function isAdmin()
+    {
+        return $this->role == 3;
+    }
 }

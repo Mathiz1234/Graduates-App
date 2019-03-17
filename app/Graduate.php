@@ -22,8 +22,19 @@ class Graduate extends Model
 
     /*Functions*/
 
-    public static function getGraduates()
+    public static function getGraduates($data, $shared = true)
     {
-        return Graduate::shared()->orderBy('surname', 'asc')->paginate(15);
+        return Graduate::when($data, function ($query, $data) {
+            foreach ($data as $key => $input) {
+                $query->when($input, function ($query, $value) use ($key) {
+                    return $query->where($key, 'like', '%'.$value.'%');
+                });
+            }
+        })
+        ->when($shared, function ($query) {
+            return $query->shared();
+        })
+        ->orderBy('surname', 'asc')
+        ->paginate(15);
     }
 }
