@@ -16342,6 +16342,8 @@ body {
 html {
   position: relative;
   min-height: 100%;
+  /*New in CSS*/
+  scroll-behavior: smooth;
 }
 
 body {
@@ -16388,5 +16390,20 @@ body {
   .graduate-card img {
     border-radius: 50%;
   }
+}
+
+/*--------Go up button/circle buttons---------*/
+
+.btn-circle {
+  border-radius: 50%;
+  text-align: center;
+}
+
+#btn-go-up {
+  display: none;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  z-index: 2000;
 }
 

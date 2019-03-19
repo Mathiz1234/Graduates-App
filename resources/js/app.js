@@ -81,3 +81,16 @@ $(document).ready(function(){
     })
 
 });
+
+//Go-up-buttton
+$(document).ready(function(){
+
+    $(window).scroll(function() {
+        if ($(this).scrollTop() >= 50) {
+            $('#btn-go-up').fadeIn(200);
+        } else {
+            $('#btn-go-up').fadeOut(200);
+        }
+    });
+
+});

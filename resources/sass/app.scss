@@ -32,6 +32,8 @@ body{
 html {
   position: relative;
   min-height: 100%;
+  /*New in CSS*/
+  scroll-behavior: smooth;
 }
 body {
   /* Margin bottom by footer height */
@@ -79,4 +81,22 @@ body {
 
   }
 
+}
+/*--------Go up button/circle buttons---------*/
+.btn-circle {
+  // width: 30px;
+  // height: 30px;
+  // padding: 6px 0px;
+  border-radius: 50%;
+  text-align: center;
+  // font-size: 12px;
+  // line-height: 1.42857;
+}
+
+#btn-go-up{
+  display: none;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  z-index: 2000;
 }

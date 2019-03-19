@@ -14,7 +14,7 @@
     </head>
     <body>
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav id="main-menu" class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="{{ route('main') }}">
               <i class="fas fa-user-graduate d-inline-block align-text-bottom mr-1"></i>
               ABSOLWENCI</a>
@@ -73,6 +73,10 @@
           </div>
 
         </main>
+
+        <section>
+          <a href="#main-menu" id="btn-go-up" class="btn btn-primary btn-lg btn-circle"><i class="fas fa-arrow-up"></i></a>
+        </section>
 
         <footer>
           <div class="footer mt-auto py-3 border shadow-sm">
