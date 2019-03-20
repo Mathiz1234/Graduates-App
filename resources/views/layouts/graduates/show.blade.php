@@ -3,75 +3,56 @@
 
 @section('content')
 
-{{-- Search bar --}}
+{{-- Graduate table --}}
 
-<div class="row justify-content-center mt-3 filters sticky-top">
-    <div class="col text-center">
-    <button class="d-inline-block d-lg-none btn btn-primary mb-1" type="button" data-toggle="collapse" data-target="#collapseSearchBar" aria-expanded="false" aria-controls="collapseSearchBar">
-            Filtry
-    </button>
-            <div class="collapse" id="collapseSearchBar">
-            <div class="card card-body">
-            <form method="GET" action="{{ url('graduates') }}" autocomplete="on">
-                    <div class="form-row text-left">
-                        <div class="form-group col">
-                            <label for="inputName">Imię</label>
-                            <input type="text" class="form-control" id="inputName" placeholder="Imię" name="name" value="{{ old('name') }}">
-                        </div>
-                        <div class="form-group col">
-                                <label for="inputSurname">Nazwisko</label>
-                                <input type="text" class="form-control" id="inputSurname" placeholder="Nazwisko" name="surname" value="{{ old('surname') }}">
-                        </div>
-                        <div class="form-group col">
-                                <label for="inputMatureYear">Rok matury</label>
-                                <input type="number" min="1874" max="2099" step="1" class="form-control" id="inputMatureYear" placeholder="Rok matury" name="mature_year" value={{ old('mature_year') }}>
-                        </div>
-                    </div>
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-search mr-2"></i>Szukaj</button>
-            </form>
-            </div>
-            </div>
+<section class="card my-2 shadow-sm rounded graduate-card">
+    <div class="row no-gutters">
+      <div class="col-4 col-lg-2 d-flex align-items-start graduate-card__avatar">
+        <img src="{{ asset('img/avatars/'.$graduate->avatar) }}" class="card-img p-1" alt="avatar">
+      </div>
+      <div class="col-8 col-lg-10 graduate-card__text">
+        <div class="card-body">
+        <p class="card-text">Imię: <strong>{{ $graduate->name }}</strong></p>
+        <p class="card-text">Nazwisko: <strong>{{ $graduate->surname }}</strong></p>
+        <p class="card-text">Rok matury: <strong>{{ $graduate->mature_year }}</strong></p>
+        </div>
+      </div>
     </div>
-
-</div>
-
-{{-- Graduates table --}}
-
-<section>
-
-    @foreach ($graduates as $graduate)
-
-    <section class="card my-2 shadow-sm rounded graduate-card">
-        <div class="row no-gutters">
-          <div class="col-4 col-lg-2 d-flex align-items-center graduate-card__avatar">
-            <img src="{{ asset('img/avatars/'.$graduate->avatar) }}" class="card-img p-1" alt="avatar">
-          </div>
-          <div class="col-8 col-lg-10 graduate-card__text">
+    <div class="row">
+        <div class="graduate-card__text p-1 text-justify">
             <div class="card-body">
-            <a href="{{ url('graduates/'.$graduate->id) }}" class="card-title text-uppercase stretched-link">{{ $graduate->surname.' '.$graduate->name }}</a>
-            <p class="card-text">Rok matury: {{ $graduate->mature_year }}</p>
+            <p class="card-text">Opis: {{ $graduate->description }}</p>
             <p class="card-text"><small class="text-muted">Dodany {{ $graduate->created_at }}</small></p>
             <p class="card-text"><small class="text-muted">Ostatnia aktułalizacja {{ $graduate->updated_at }}</small></p>
             </div>
           </div>
-        </div>
-    </section>
-
-    @endforeach
-
-    @if (count($graduates) == 0)
-
-    <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
-        <strong>Brak wyników wyszukiwania</strong> Spróbuj poszukać czegoś innego
-        <button type="button" class="close" data-dismiss="alert" aria-label="@lang('general.close')">
-          <span aria-hidden="true">&times;</span>
-        </button>
     </div>
+</section>
 
-    @endif
+<section>
+    <div class="card graduate-card">
+        <div class="card-body row">
+          @foreach ($graduate->images as $image)
+          <div class="col-12 col-lg-6 p-1 graduate-card__img d-flex align-items-center" style="max-height: 400px; overflow:hidden;">
+            <img src="{{ asset('img/scans/'.$image->image_url) }}" class="graduate-card__img--file img-fluid rounded border border-success" alt="Skany">
+            <a class="graduate-card__img--link" href="{{ asset('img/scans/'.$image->image_url) }}" target="_blank">KLIK <i class="fas fa-hand-pointer"></i></a>
+          </div>
+          @endforeach
+        </div>
+      </div>
+</section>
 
-    {{ $graduates->onEachSide(1)->links() }}
+<section class="d-flex my-2 justify-content-center">
+    <a href="{{ url('graduates') }}" class="btn btn-primary mx-2">WRÓĆ</a>
+    @can('change', $graduate)
+    <a href="{{ url('graduates/'.$graduate->id.'/edit') }}" class="btn btn-primary mx-2">EDYCJA</a>
+    <form class="d-inline-block mx-2" method="POST" action="{{ url('graduates/'.$graduate->id) }}">
+        @method('DELETE')
 
+        @csrf
+    <button type="submit" class="btn btn-primary">USUŃ</button>
+  </form>
+  @endcan
 </section>
 
 @endsection

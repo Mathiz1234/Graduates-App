@@ -22,6 +22,11 @@ class Graduate extends Model
 
     /*Functions*/
 
+    public function isShared()
+    {
+        return $this->shared;
+    }
+
     public static function getGraduates($data, $shared = true)
     {
         return Graduate::when($data, function ($query, $data) {

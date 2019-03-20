@@ -10,50 +10,36 @@ class GraduatePolicy
 {
     use HandlesAuthorization;
 
-    // /**
-    //  * Determine whether the user can view the graduate.
-    //  *
-    //  * @param  \App\User  $user
-    //  * @param  \App\Graduate  $graduate
-    //  * @return mixed
-    //  */
-    // public function view(User $user)
-    // {
-    // }
-
     /**
-     * Determine whether the user can create graduates.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
-    public function create(User $user)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can update the graduate.
+     * Determine whether the user can view the graduate.
      *
      * @param  \App\User  $user
      * @param  \App\Graduate  $graduate
      * @return mixed
      */
-    public function update(User $user, Graduate $graduate)
+    public function show(?User $user, $graduate)
     {
-        //
+        if (auth()->check()) {
+            return true;
+        } else {
+            return $graduate->isShared();
+        }
     }
 
     /**
-     * Determine whether the user can delete the graduate.
+     * Determine whether the user can change the graduate.
      *
      * @param  \App\User  $user
      * @param  \App\Graduate  $graduate
      * @return mixed
      */
-    public function delete(User $user, Graduate $graduate)
+    public function change(User $user, Graduate $graduate)
     {
-        //
+        if ($user->isModerator() || $user->isAdmin()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

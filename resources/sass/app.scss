@@ -82,6 +82,60 @@ body {
   }
 
 }
+
+.graduate-card__img{
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  cursor: pointer;
+  &:hover{
+    transform: scale(0.9);
+
+    .graduate-card__img--file {
+      opacity: 0.6;
+    }
+
+    .graduate-card__img--link{
+      display: block;
+      text-decoration: none;
+    }
+  }
+
+  .graduate-card__img--file{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 0.4s ease-in-out;
+  }
+  .graduate-card__img--link{
+    display: none;
+    font-size: 1.5rem;
+    letter-spacing: 0.5rem;
+    font-family: $header-font;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    transition: all 0.4s ease-in-out;
+  }
+
+  @include media-breakpoint-up(lg) {
+
+    .graduate-card__img--link{
+      font-size: 2.5rem;
+      letter-spacing: 0.8rem;
+    }
+
+  }
+
+  @include media-breakpoint-up(xl) {
+
+    .graduate-card__img--link{
+      font-size: 3.5rem;
+      letter-spacing: 1rem;
+    }
+
+  }
+}
 /*--------Go up button/circle buttons---------*/
 .btn-circle {
   // width: 30px;

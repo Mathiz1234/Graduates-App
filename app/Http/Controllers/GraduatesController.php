@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class GraduatesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +41,7 @@ class GraduatesController extends Controller
             $graduates = Graduate::getGraduates($data);
         }
 
-        return view('layouts.graduates.show', [
+        return view('layouts.graduates.index', [
             'page' => 'search',
             'graduates' => $graduates
         ]);
@@ -70,7 +76,12 @@ class GraduatesController extends Controller
      */
     public function show(Graduate $graduate)
     {
-        //
+        $this->authorize('show', $graduate);
+
+        return view('layouts.graduates.show', [
+            'page' => 'search',
+            'graduate' => $graduate
+        ]);
     }
 
     /**
