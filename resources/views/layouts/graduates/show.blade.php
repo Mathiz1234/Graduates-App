@@ -29,6 +29,7 @@
     </div>
 </section>
 
+@if($graduate->images->count())
 <section>
     <div class="card graduate-card">
         <div class="card-body row">
@@ -41,6 +42,7 @@
         </div>
       </div>
 </section>
+@endif
 
 <section class="d-flex my-2 justify-content-center">
     <a href="{{ url('graduates') }}" class="btn btn-primary mx-2">WRÓĆ</a>
