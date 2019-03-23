@@ -37,4 +37,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->role == 3;
     }
+
+    public function ifEmailVerify()
+    {
+        return $this->email_verified_at != null;
+    }
 }

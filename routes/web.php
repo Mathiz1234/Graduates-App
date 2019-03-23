@@ -15,9 +15,18 @@ Route::get('/', function () {
     return view('layouts.welcome', ['page' => 'main']);
 })->name('main');
 
-Route::get('/rules', function () {
+Route::get('rules', function () {
     return view('layouts.rules', ['page' => 'rules']);
 })->name('rules');
+
+Route::prefix('account')->group(function () {
+    Route::get('/', 'AccountController@index');
+    Route::post('/', 'AccountController@');
+    Route::get('/change', 'AccountController@');
+    Route::get('/change/password', 'AccountController@');
+    Route::get('/management', 'AccountController@');
+});
+
 
 Auth::routes(['verify' => true]);
 

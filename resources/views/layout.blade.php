@@ -41,7 +41,10 @@
                               Konto
                             </button>
                             <div class="dropdown-menu dropdown-menu-lg-right">
-                              <a class="dropdown-item" href="#">Mój profil</a>
+                            <a class="dropdown-item" href="{{ url('account') }}">Mój profil</a>
+                              @if(auth()->user()->isAdmin())
+                              <a class="dropdown-item" href="{{ url('account/management') }}">Zarządzanie</a>
+                              @endif
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
