@@ -36657,6 +36657,12 @@ $(document).ready(function () {
       $('#btn-go-up').fadeOut(200);
     }
   });
+}); //Tooltips
+
+$(document).ready(function () {
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
 });
 
 /***/ }),

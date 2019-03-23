@@ -24,7 +24,8 @@ Route::prefix('account')->group(function () {
     Route::post('/', 'AccountController@');
     Route::get('/change', 'AccountController@');
     Route::get('/change/password', 'AccountController@');
-    Route::get('/management', 'AccountController@');
+    Route::get('/management', 'AccountController@management_index');
+    Route::post('/management', 'AccountController@management_change_permissions');
 });
 
 
