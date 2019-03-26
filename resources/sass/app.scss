@@ -21,6 +21,11 @@ body{
   /* Background pattern from Toptal Subtle Patterns */
   font-family: $default-font;
   //font-family: $header-font;
+
+  .header-font{
+    font-family: $header-font;
+    letter-spacing: 0.05rem;
+  }
 }
 
 .navbar, .v-b-font{

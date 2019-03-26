@@ -52,14 +52,14 @@ class AccountController extends Controller
             ->where('id', $data['id'])
             ->whereIn('role', [1,2])
             ->increment('role')) {
-                $request->session()->flash('status', 'Pomyślnie zwiększono uprawnienia!');
+                session()->flash('status', 'Pomyślnie zwiększono uprawnienia!');
             }
         } elseif ($data['promotion'] == 'down') {
             if (DB::table('users')
             ->where('id', $data['id'])
             ->whereIn('role', [2,3])
             ->decrement('role')) {
-                $request->session()->flash('status', 'Pomyślnie zmiejszono uprawnienia!');
+                session()->flash('status', 'Pomyślnie zmiejszono uprawnienia!');
             }
         }
 
