@@ -11,14 +11,14 @@
             <div class="card-header" id="headingOne">
             <h2 class="mb-0">
                 <button class="btn btn-link text-uppercase" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Typ konta używkownik
+                {{ __('User account type') }}
                 </button>
             </h2>
             </div>
 
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
             <div class="card-body">
-                Użytkownik może przeglądać całą baze danych (udostępnionych i nie udostępnionych) absolwentów.
+                {{ __('The user can browse the entire database (shared and not shared) of graduates.') }}
             </div>
             </div>
         </div>
@@ -26,13 +26,13 @@
             <div class="card-header" id="headingTwo">
             <h2 class="mb-0">
                 <button class="btn btn-link collapsed text-uppercase" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Typ konta moderator
+                    {{ __('Moderator account type') }}
                 </button>
             </h2>
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
             <div class="card-body">
-                Moderator posiada uprawnienia użytkownika oraz może dodawać, zmieniać i usuwać (do kosza) absolwentów.
+                {{ __("The moderator has the user's authority and can add, change and delete (into the basket) graduates.") }}
             </div>
             </div>
         </div>
@@ -40,13 +40,13 @@
             <div class="card-header" id="headingThree">
             <h2 class="mb-0">
                 <button class="btn btn-link collapsed text-uppercase" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Typ konta administrator
+                 {{ __('Administrator account type') }}
                 </button>
             </h2>
             </div>
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
             <div class="card-body">
-                    Administrator posiada uprawnienia moderatora oraz może na stałe usuwać absolwentów z bazy danych oraz może nadawać uprawnienia innym uzytkownikom.
+                    {{ __("The administrator has moderator's authority and can permanently remove graduates from the database and may grant authority to other users.") }}
                 </div>
             </div>
         </div>
@@ -57,16 +57,16 @@
 
     <div class="card my-1 col col-lg-10">
         <div class="card-header text-center">
-            <h4>Spis użytkowników:</h4>
+            <h4>{{ __('List of users') }}:</h4>
         </div>
         <div class="card-body table-responsive">
             <table class="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Imię</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Rodzaj</th>
+                            <th scope="col">{{ __('Name') }}</th>
+                            <th scope="col">{{ __('Email') }}</th>
+                            <th scope="col">{{ __('Type') }}</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
                         </tr>
@@ -80,13 +80,13 @@
                                 <td>
                                     @switch ($user->role)
                                         @case (1)
-                                            Użytkownik
+                                        {{ __('User') }}
                                         @break
                                         @case (2)
-                                            Moderator
+                                        {{ __('Moderator') }}
                                         @break
                                         @case (3)
-                                            Administrator
+                                        {{ __('Administrator') }}
                                         @break
                                     @endswitch
                                 </td>
@@ -95,7 +95,7 @@
                                         @csrf
                                         <input type="hidden" name="promotion" value="up">
                                         <input type="hidden" name="id" value="{{ $user->id }}">
-                                        <button type="submit" class="btn btn-outline-primary  data-toggle="tooltip" data-placement="top" title="Zwiększ uprawnienia" {{ $user->role == 3 ? 'disabled' : '' }}>
+                                        <button type="submit" class="btn btn-outline-primary"  data-toggle="tooltip" data-placement="top" title="{{ __('Increase permissions') }}" {{ $user->role == 3 ? 'disabled' : '' }}>
                                             <i class="fas fa-level-up-alt"></i>
                                         </button>
                                     </form>
@@ -105,7 +105,7 @@
                                         @csrf
                                         <input type="hidden" name="promotion" value="down">
                                         <input type="hidden" name="id" value="{{ $user->id }}">
-                                        <button type="submit" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Zmiejsz uprawnienia" {{ $user->role == 1 ? 'disabled' : '' }}>
+                                        <button type="submit" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="{{ __('Decrease permissions') }}" {{ $user->role == 1 ? 'disabled' : '' }}>
                                             <i class="fas fa-level-down-alt"></i>
                                         </button>
                                     </form>

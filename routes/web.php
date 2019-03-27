@@ -11,13 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.welcome', ['page' => 'main']);
-})->name('main');
-
-Route::get('rules', function () {
-    return view('layouts.rules', ['page' => 'rules']);
-})->name('rules');
+Route::get('/', 'PagesController@index')->name('main');
+Route::get('rules', 'PagesController@rules')->name('rules');
+Route::get('language', 'PagesController@localization');
 
 Route::prefix('account')->group(function () {
     Route::get('/', 'AccountController@index');
@@ -27,7 +23,6 @@ Route::prefix('account')->group(function () {
     Route::get('/management', 'AccountController@management_index');
     Route::post('/management', 'AccountController@management_change_permissions');
 });
-
 
 Auth::routes(['verify' => true]);
 

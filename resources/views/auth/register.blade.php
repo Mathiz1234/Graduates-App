@@ -1,10 +1,10 @@
 @extends('layout')
 
 @section('content')
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-2">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Rejestracja</div>
+                <div class="card-header">@lang('auth.register')</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">

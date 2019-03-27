@@ -12,18 +12,18 @@
       </div>
       <div class="col-8 col-lg-10 graduate-card__text">
         <div class="card-body">
-        <p class="card-text">Imię: <strong>{{ $graduate->name }}</strong></p>
-        <p class="card-text">Nazwisko: <strong>{{ $graduate->surname }}</strong></p>
-        <p class="card-text">Rok matury: <strong>{{ $graduate->mature_year }}</strong></p>
+        <p class="card-text">{{ __('Name') }}: <strong>{{ $graduate->name }}</strong></p>
+        <p class="card-text">{{ __('Surname') }}: <strong>{{ $graduate->surname }}</strong></p>
+        <p class="card-text">{{ __('Mature year') }}: <strong>{{ $graduate->mature_year }}</strong></p>
         </div>
       </div>
     </div>
     <div class="row">
         <div class="graduate-card__text p-1 text-justify">
             <div class="card-body">
-            <p class="card-text">Opis: {{ $graduate->description }}</p>
-            <p class="card-text"><small class="text-muted">Dodany {{ $graduate->created_at }}</small></p>
-            <p class="card-text"><small class="text-muted">Ostatnia aktułalizacja {{ $graduate->updated_at }}</small></p>
+            <p class="card-text">{{ __('Description') }}: {{ $graduate->description }}</p>
+            <p class="card-text"><small class="text-muted">{{ __('Created at') }}: {{ $graduate->created_at }}</small></p>
+            <p class="card-text"><small class="text-muted">{{ __('Last updated at') }}: {{ $graduate->updated_at }}</small></p>
             </div>
           </div>
     </div>
@@ -35,8 +35,8 @@
         <div class="card-body row">
           @foreach ($graduate->images as $image)
           <div class="col-12 col-lg-6 p-1 graduate-card__img d-flex align-items-center" style="max-height: 400px; overflow:hidden;">
-            <img src="{{ asset('img/scans/'.$image->image_url) }}" class="graduate-card__img--file img-fluid rounded border border-success" alt="Skany">
-            <a class="graduate-card__img--link" href="{{ asset('img/scans/'.$image->image_url) }}" target="_blank">KLIK <i class="fas fa-hand-pointer"></i></a>
+            <img src="{{ asset('img/scans/'.$image->image_url) }}" class="graduate-card__img--file img-fluid rounded border border-success" alt="@lang('general.scan')">
+            <a class="graduate-card__img--link" href="{{ asset('img/scans/'.$image->image_url) }}" target="_blank">@lang('general.click') <i class="fas fa-hand-pointer"></i></a>
           </div>
           @endforeach
         </div>
@@ -45,14 +45,14 @@
 @endif
 
 <section class="d-flex my-2 justify-content-center">
-    <a href="{{ url('graduates') }}" class="btn btn-primary mx-2">WRÓĆ</a>
+    <a href="{{ url('graduates') }}" class="btn btn-primary mx-2">@lang('general.back')</a>
     @can('change', $graduate)
-    <a href="{{ url('graduates/'.$graduate->id.'/edit') }}" class="btn btn-primary mx-2">EDYCJA</a>
+    <a href="{{ url('graduates/'.$graduate->id.'/edit') }}" class="btn btn-primary mx-2">@lang('general.edit')</a>
     <form class="d-inline-block mx-2" method="POST" action="{{ url('graduates/'.$graduate->id) }}">
         @method('DELETE')
 
         @csrf
-    <button type="submit" class="btn btn-primary">USUŃ</button>
+    <button type="submit" class="btn btn-primary">@lang('general.delete')</button>
   </form>
   @endcan
 </section>

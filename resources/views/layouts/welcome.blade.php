@@ -8,7 +8,7 @@
 @if(auth()->check())
 
 <div class="alert alert-primary text-center my-1"role="alert">
-        <h4 class="header-font">Witaj {{ auth()->user()->name }} !</h4>
+        <h4 class="header-font">{{ __("Hello") }} {{ auth()->user()->name }} !</h4>
 </div>
 
 @endif

@@ -5,7 +5,7 @@
 
 
 <div class="card mt-3">
-        <h1 class="text-uppercase text-center v-b-font">Regulamin</h1>
+        <h1 class="text-uppercase text-center v-b-font">@lang('general.rules')</h1>
         <div class="card-body">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur temporibus nesciunt consequuntur magni facilis eaque consectetur omnis repudiandae iure, officiis dolores eius alias aut a molestiae maiores laboriosam natus quod?
             Nemo veritatis optio odio laudantium nulla aliquid qui velit? Qui animi dolor, libero ipsa quas sapiente eius iste eum amet tenetur sunt dolores laudantium, ipsum veritatis autem ratione minima laborum?
