@@ -108,13 +108,85 @@ class GraduatesController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Graduate  $graduate
-     * @return \Illuminate\Http\Response
-     */
+    * Soft deleting.
+    *
+    * @param  \App\Graduate  $graduate
+    * @return \Illuminate\Http\Response
+    */
     public function destroy(Graduate $graduate)
     {
-        //
+        $this->authorize('change', Graduate::class);
+
+        $graduate->delete();
+
+        return redirect('/graduates')->with('status', 'The graduate has been removed.');
+    }
+
+    /**
+     * Show deleted graduates.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function showDeleted(Request $request)
+    {
+        $this->authorize('forceDeleted', Graduate::class);
+
+        $graduates = Graduate::getDeletedGraduates();
+
+        return view('layouts.graduates.index-deleted', [
+            'page' => 'search',
+            'graduates' => $graduates
+        ]);
+    }
+
+    /**
+    * Restore deleted graduates.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\Response
+    */
+    public function restore(Request $request)
+    {
+        $this->authorize('forceDeleted', Graduate::class);
+
+        if ($request->has('id')) {
+            $data = $request->validate([
+                'id' => ['required', 'integer']
+            ]);
+
+            if ($graduate = Graduate::findWithDeleted($data['id'])) {
+                if ($graduate->trashed()) {
+                    $graduate->restore();
+                }
+            }
+        }
+
+        return redirect('/graduates')->with('status', 'The graduate has been restored!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function forceDelete(Request $request)
+    {
+        $this->authorize('forceDeleted', Graduate::class);
+
+        if ($request->has('id')) {
+            $data = $request->validate([
+                'id' => ['required', 'integer']
+            ]);
+
+            if ($graduate = Graduate::findWithDeleted($data['id'])) {
+                if ($graduate->trashed()) {
+                    $graduate->forceDelete();
+                }
+            }
+        }
+
+        return redirect('/graduates')->with('status', 'The graduate has been permanently removed!');
     }
 }

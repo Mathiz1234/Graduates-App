@@ -44,7 +44,7 @@ class AccountController extends Controller
 
             'promotion' => ['required','string'],
 
-            'id' => ['required','string', 'integer']
+            'id' => ['required', 'integer']
         ]);
 
         if ($data['promotion'] == 'up') {
@@ -52,14 +52,14 @@ class AccountController extends Controller
             ->where('id', $data['id'])
             ->whereIn('role', [1,2])
             ->increment('role')) {
-                session()->flash('status', 'Pomyślnie zwiększono uprawnienia!');
+                session()->flash('status', 'Successfully increased permissions!');
             }
         } elseif ($data['promotion'] == 'down') {
             if (DB::table('users')
             ->where('id', $data['id'])
             ->whereIn('role', [2,3])
             ->decrement('role')) {
-                session()->flash('status', 'Pomyślnie zmiejszono uprawnienia!');
+                session()->flash('status', 'Successfully decreased permissions!');
             }
         }
 

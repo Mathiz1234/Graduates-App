@@ -3,9 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Graduate extends Model
 {
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
+
     /*Relationships*/
 
     public function images()
@@ -41,5 +46,17 @@ class Graduate extends Model
         })
         ->orderBy('surname', 'asc')
         ->paginate(15);
+    }
+
+    public static function getDeletedGraduates()
+    {
+        return Graduate::onlyTrashed()
+            ->orderBy('surname', 'asc')
+            ->paginate(15);
+    }
+
+    public static function findWithDeleted($id)
+    {
+        return Graduate::withTrashed()->find($id);
     }
 }

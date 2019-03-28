@@ -26,6 +26,10 @@ Route::prefix('account')->group(function () {
 
 Auth::routes(['verify' => true]);
 
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::prefix('graduates')->group(function () {
+    Route::get('/deleted', 'GraduatesController@showDeleted');
+    Route::post('/deleted', 'GraduatesController@restore');
+    Route::delete('/deleted', 'GraduatesController@forceDelete');
+});
 
 Route::resource('graduates', 'GraduatesController');

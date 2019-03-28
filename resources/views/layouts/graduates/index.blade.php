@@ -15,12 +15,12 @@
             <form method="GET" action="{{ url('graduates') }}" autocomplete="on">
                     <div class="form-row text-left">
                         <div class="form-group col">
-                            <label for="inputName">{{ __('Name') }}:</label>
-                            <input type="text" class="form-control" id="inputName" placeholder="{{ __('Name') }}" name="name" value="{{ old('name') }}">
+                              <label for="inputSurname">{{ __('Surname') }}:</label>
+                              <input type="text" class="form-control" id="inputSurname" placeholder="{{ __('Surname') }}" name="surname" value="{{ old('surname') }}">
                         </div>
                         <div class="form-group col">
-                                <label for="inputSurname">{{ __('Surname') }}:</label>
-                                <input type="text" class="form-control" id="inputSurname" placeholder="{{ __('Surname') }}" name="surname" value="{{ old('surname') }}">
+                            <label for="inputName">{{ __('Name') }}:</label>
+                            <input type="text" class="form-control" id="inputName" placeholder="{{ __('Name') }}" name="name" value="{{ old('name') }}">
                         </div>
                         <div class="form-group col">
                                 <label for="inputMaturaYear">{{ __('Matura year') }}:</label>
@@ -36,6 +36,14 @@
 </div>
 
 {{-- Graduates table --}}
+
+@include('session-status')
+
+@can('forceDeleted', App\Graduate::class)
+  <section class="d-flex justify-content-center mt-1">
+    <a class="btn btn-primary" href="{{ url('graduates/deleted') }}"><i class="fas fa-trash-alt"></i> {{ __('Bin') }}</a>
+  </section>
+@endcan
 
 <section>
 

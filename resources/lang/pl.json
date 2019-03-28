@@ -41,8 +41,19 @@
     "Administrator" : "administrator",
     "Increase permissions" : "Zwiększ uprawnienia",
     "Decrease permissions" : "Zmniejsz uprawnienia",
+    "Successfully increased permissions!" : "Pomyślnie zwiększono uprawnienia!",
+    "Successfully decreased permissions!" : "Pomyślnie zmiejszono uprawnienia!",
     "No search results" : "Brak wyników wyszukiwania",
     "Try to search something else" : "Spróbuj wyszukać czegoś innego",
-    "Description" : "Opis"
-
+    "Description" : "Opis",
+    "The graduate has been removed." : "Absolwent został usunięty",
+    "You have been registered!" : "Zostałeś pomyślnie zarejestrowany!",
+    "Bin" : "Kosz",
+    "No deleted graduates." : "Brak usuniętych absolwentów",
+    "Deleted graduates" : "Usunięci absowenci",
+    "Restore" : "Przywróć",
+    "Force Delete" : "Usuń trwale",
+    "The graduate has been restored!" : "Absolwent został przywrócony!",
+    "The graduate has been permanently removed!" : "Absolwent został trwale usunięty!",
+    "Deleted at" : "Usunięty"
 }

@@ -46,7 +46,7 @@
 
 <section class="d-flex my-2 justify-content-center">
     <a href="{{ url('graduates') }}" class="btn btn-primary mx-2">@lang('general.back')</a>
-    @can('change', $graduate)
+    @can('change', App\Graduate::class)
     <a href="{{ url('graduates/'.$graduate->id.'/edit') }}" class="btn btn-primary mx-2">@lang('general.edit')</a>
     <form class="d-inline-block mx-2" method="POST" action="{{ url('graduates/'.$graduate->id) }}">
         @method('DELETE')
@@ -54,7 +54,7 @@
         @csrf
     <button type="submit" class="btn btn-primary">@lang('general.delete')</button>
   </form>
-  @endcan
+    @endcan
 </section>
 
 @endsection

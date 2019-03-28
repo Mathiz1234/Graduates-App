@@ -33,7 +33,7 @@ class GraduatePolicy
      * @param  \App\Graduate  $graduate
      * @return mixed
      */
-    public function change(User $user, Graduate $graduate)
+    public function change(User $user)
     {
         if ($user->isModerator() || $user->isAdmin()) {
             return true;
@@ -42,27 +42,15 @@ class GraduatePolicy
         }
     }
 
-    /**
-     * Determine whether the user can restore the graduate.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Graduate  $graduate
-     * @return mixed
-     */
-    public function restore(User $user, Graduate $graduate)
-    {
-        //
-    }
 
     /**
      * Determine whether the user can permanently delete the graduate.
      *
      * @param  \App\User  $user
-     * @param  \App\Graduate  $graduate
-     * @return mixed
+     * @return bool
      */
-    public function forceDelete(User $user, Graduate $graduate)
+    public function forceDeleted(User $user)
     {
-        //
+        return $user->isAdmin();
     }
 }
