@@ -14,7 +14,7 @@
         <div class="card-body">
         <p class="card-text">{{ __('Name') }}: <strong>{{ $graduate->name }}</strong></p>
         <p class="card-text">{{ __('Surname') }}: <strong>{{ $graduate->surname }}</strong></p>
-        <p class="card-text">{{ __('Mature year') }}: <strong>{{ $graduate->mature_year }}</strong></p>
+        <p class="card-text">{{ __('Matura year') }}: <strong>{{ $graduate->matura_year }}</strong></p>
         </div>
       </div>
     </div>

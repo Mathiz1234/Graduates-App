@@ -64,6 +64,11 @@
                             <a class="btn btn-outline-success my-2 my-sm-0"href="{{ route('register') }}">{{ __('Register') }}</a>
                         @endif
                     @endauth
+                      @if(app()->getLocale() == 'pl')
+                        <a href="{{ url('language') }}"><img width="30" height="30" src="{{ asset('svg/language/en.svg') }}" alt="English flag"></a>
+                      @else
+                        <a href="{{ url('language') }}"><img width="30" height="30" src="{{ asset('svg/language/pl.svg') }}" alt="Poland flag"></a>
+                      @endif
                 </div>
             @endif
             </div>

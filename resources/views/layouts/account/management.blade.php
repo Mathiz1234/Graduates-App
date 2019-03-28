@@ -32,7 +32,7 @@
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
             <div class="card-body">
-                {{ __("The moderator has the user's authority and can add, change and delete (into the basket) graduates.") }}
+                {{ __("The moderator has the user's authority and can add, change and delete (into the bin) graduates.") }}
             </div>
             </div>
         </div>

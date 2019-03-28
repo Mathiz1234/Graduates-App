@@ -23,8 +23,8 @@
                                 <input type="text" class="form-control" id="inputSurname" placeholder="{{ __('Surname') }}" name="surname" value="{{ old('surname') }}">
                         </div>
                         <div class="form-group col">
-                                <label for="inputMatureYear">{{ __('Mature year') }}:</label>
-                                <input type="number" min="1874" max="2099" step="1" class="form-control" id="inputMatureYear" placeholder="{{ __('Mature year') }}" name="mature_year" value={{ old('mature_year') }}>
+                                <label for="inputMaturaYear">{{ __('Matura year') }}:</label>
+                                <input type="number" min="1874" max="2099" step="1" class="form-control" id="inputMaturaYear" placeholder="{{ __('Matura year') }}" name="matura_year" value={{ old('matura_year') }}>
                         </div>
                     </div>
                         <button type="submit" class="btn btn-primary"><i class="fas fa-search mr-2"></i>{{ __('Search') }}</button>
@@ -49,7 +49,7 @@
           <div class="col-8 col-lg-10 graduate-card__text">
             <div class="card-body">
             <a href="{{ url('graduates/'.$graduate->id) }}" class="card-title text-uppercase stretched-link">{{ $graduate->surname.' '.$graduate->name }}</a>
-            <p class="card-text">Rok matury: {{ $graduate->mature_year }}</p>
+            <p class="card-text">{{ __('Matura year') }}: {{ $graduate->matura_year }}</p>
             <p class="card-text"><small class="text-muted">{{ __('Created at') }}: {{ $graduate->created_at }}</small></p>
             <p class="card-text"><small class="text-muted">{{ __('Last updated at') }}: {{ $graduate->updated_at }}</small></p>
             </div>

@@ -22,14 +22,14 @@ class GraduatesController extends Controller
     {
         $data = [];
 
-        if ($request->has(['name', 'surname', 'mature_year'])) {
+        if ($request->has(['name', 'surname', 'matura_year'])) {
             $data = $request->validate([
 
                 'name' => ['string', 'nullable'],
 
                 'surname' => ['string', 'nullable'],
 
-                'mature_year' => ['numeric', 'nullable']
+                'matura_year' => ['numeric', 'nullable']
             ]);
 
             $request->flash();

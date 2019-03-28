@@ -7,7 +7,7 @@ $factory->define(App\Graduate::class, function (Faker $faker) {
         'shared' => rand(1, 0),
         'name' => $faker->firstName,
         'surname' => $faker->lastName,
-        'mature_year' => $faker->year(),
+        'matura_year' => $faker->year(),
         'description' => $faker->text(),
     ];
 });
