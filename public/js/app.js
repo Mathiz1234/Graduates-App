@@ -36663,7 +36663,18 @@ $(document).ready(function () {
   $(function () {
     $('[data-toggle="tooltip"]').tooltip();
   });
-});
+}); // //Create view
+// $(document).ready(function() {
+//     $(".add").click(function(){
+//         let html = $(".clone").html();
+//         $(".increment").after(html);
+//         console.log('add');
+//     });
+//     $(".remove").click(function(){
+//         console.log('remove');
+//         $(this).parents(".control-group").remove();
+//     });
+// });
 
 /***/ }),
 

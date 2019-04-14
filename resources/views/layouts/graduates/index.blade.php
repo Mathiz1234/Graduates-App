@@ -39,11 +39,21 @@
 
 @include('session-status')
 
+<section class="d-flex justify-content-center">
+
 @can('forceDeleted', App\Graduate::class)
-  <section class="d-flex justify-content-center mt-1">
+  <section class="d-inline m-1">
     <a class="btn btn-primary" href="{{ url('graduates/deleted') }}"><i class="fas fa-trash-alt"></i> {{ __('Bin') }}</a>
   </section>
 @endcan
+
+@can('change', App\Graduate::class)
+  <section class="d-inline m-1">
+    <a class="btn btn-primary" href="{{ url('graduates/create') }}"><i class="fas fa-plus"></i> {{ __('Create') }}</a>
+  </section>
+@endcan
+
+</section>
 
 <section>
 
@@ -52,7 +62,7 @@
     <section class="card my-2 shadow-sm rounded graduate-card">
         <div class="row no-gutters">
           <div class="col-4 col-lg-2 d-flex align-items-center graduate-card__avatar">
-            <img src="{{ asset('img/avatars/'.$graduate->avatar) }}" class="card-img p-1" alt="avatar">
+            <img src="{{ asset('storage/avatars/'.$graduate->avatar) }}" class="card-img p-1" alt="avatar">
           </div>
           <div class="col-8 col-lg-10 graduate-card__text">
             <div class="card-body">

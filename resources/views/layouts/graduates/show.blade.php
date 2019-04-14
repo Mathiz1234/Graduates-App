@@ -8,7 +8,7 @@
 <section class="card my-2 shadow-sm rounded graduate-card">
     <div class="row no-gutters">
       <div class="col-4 col-lg-2 d-flex align-items-start graduate-card__avatar">
-        <img src="{{ asset('img/avatars/'.$graduate->avatar) }}" class="card-img p-1" alt="avatar">
+        <img src="{{ asset('storage/avatars/'.$graduate->avatar) }}" class="card-img p-1" alt="avatar">
       </div>
       <div class="col-8 col-lg-10 graduate-card__text">
         <div class="card-body">
@@ -29,14 +29,14 @@
     </div>
 </section>
 
-@if($graduate->images->count())
+@if($graduate->scans->count())
 <section>
     <div class="card graduate-card">
         <div class="card-body row">
-          @foreach ($graduate->images as $image)
+          @foreach ($graduate->scans as $scan)
           <div class="col-12 col-lg-6 p-1 graduate-card__img d-flex align-items-center" style="max-height: 400px; overflow:hidden;">
-            <img src="{{ asset('img/scans/'.$image->image_url) }}" class="graduate-card__img--file img-fluid rounded border border-success" alt="@lang('general.scan')">
-            <a class="graduate-card__img--link" href="{{ asset('img/scans/'.$image->image_url) }}" target="_blank">@lang('general.click') <i class="fas fa-hand-pointer"></i></a>
+            <img src="{{ asset('storage/scans/'.$scan->image_url) }}" class="graduate-card__img--file img-fluid rounded border border-success" alt="@lang('general.scan')">
+            <a class="graduate-card__img--link" href="{{ asset('storage/scans/'.$scan->image_url) }}" target="_blank">@lang('general.click') <i class="fas fa-hand-pointer"></i></a>
           </div>
           @endforeach
         </div>

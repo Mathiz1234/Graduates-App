@@ -15,7 +15,7 @@ class CreateGraduatesTable extends Migration
     {
         Schema::create('graduates', function (Blueprint $table) {
             $table->increments('id');
-            $table->boolean('shared');
+            $table->boolean('shared')->default(0);
             $table->string('name');
             $table->string('surname')->index();
             $table->year('matura_year')->index();

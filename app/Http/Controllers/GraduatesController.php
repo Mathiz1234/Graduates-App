@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Graduate;
+use App\Scan;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class GraduatesController extends Controller
 {
@@ -54,7 +56,9 @@ class GraduatesController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('change', Graduate::class);
+
+        return view('layouts.graduates.create');
     }
 
     /**
@@ -65,7 +69,55 @@ class GraduatesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('change', Graduate::class);
+
+        if ($request->has(['name', 'surname', 'matura_year'])) {
+            $validated = $request->validate([
+
+            'name' => ['required', 'min:3', 'max:100', 'string'],
+
+            'surname' => ['required', 'min:3', 'max:100', 'string'],
+
+            'matura_year' => ['required', 'numeric'],
+
+            'description' => ['string', 'nullable'],
+
+            'avatar' => ['image', 'max:2048'],
+
+            'scans.*' => ['image', 'max:4096']
+
+        ]);
+
+            $data = \Illuminate\Support\Arr::except($validated, ['avatar','scans']);
+
+            //avatar
+            $avatarName = 'default.png';
+            if ($request->has('avatar')) {
+                $avatarName = time().'.'.$validated['avatar']->extension();
+                $validated['avatar']->storeAs('public/avatars', $avatarName);
+                Image::make(public_path().'/storage/avatars/'.$avatarName)->fit(200)->save($avatarName);
+            }
+
+            //checkbox
+            if ($request->has('shared')) {
+                $data['shared'] = true;
+            }
+
+            //creating graduate
+            $data['avatar'] = $avatarName;
+            $graduate = Graduate::create($data);
+
+            //scans
+            if ($request->has('scans')) {
+                foreach ($validated['scans'] as $scan) {
+                    $scanName = Scan::getName($scan);
+                    $scan->storeAs('public/scans', $scanName);
+                    $graduate->addScan($scanName);
+                }
+            }
+        }
+
+        return redirect('/graduates')->with('status', 'Graduate has been successfully added!');
     }
 
     /**

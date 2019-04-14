@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Scan;
 
 class Graduate extends Model
 {
@@ -11,11 +12,14 @@ class Graduate extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected $fillable = ['name','surname','shared','matura_year','desciprion','avatar'];
+
+
     /*Relationships*/
 
-    public function images()
+    public function scans()
     {
-        return $this->hasMany('App\Image');
+        return $this->hasMany('App\Scan');
     }
 
     /*Scopes*/
@@ -58,5 +62,10 @@ class Graduate extends Model
     public static function findWithDeleted($id)
     {
         return Graduate::withTrashed()->find($id);
+    }
+
+    public function addScan($filename)
+    {
+        return $this->scans()->create(['image_url' => $filename]);
     }
 }
