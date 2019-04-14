@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">
               <label for="inputMaturaYear">{{ __('Matura year') }}</label>
-              <input type="number" min="1874" name="matura_year" class="form-control{{ $errors->has('matura_year') ? ' is-invalid' : '' }}" id="inputMaturaYear" placeholder="{{ __('Matura year') }}" value="{{ old('matura_year') }}" required>
+              <input type="number" min="1874" max="2155" name="matura_year" class="form-control{{ $errors->has('matura_year') ? ' is-invalid' : '' }}" id="inputMaturaYear" placeholder="{{ __('Matura year') }}" value="{{ old('matura_year') }}" required>
                 @if ($errors->has('mature_year'))
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $errors->first('mature_year') }}</strong>

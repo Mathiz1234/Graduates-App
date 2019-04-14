@@ -78,7 +78,7 @@ class GraduatesController extends Controller
 
             'surname' => ['required', 'min:3', 'max:100', 'string'],
 
-            'matura_year' => ['required', 'numeric'],
+            'matura_year' => ['required', 'numeric','max:2155'],
 
             'description' => ['string', 'nullable'],
 
@@ -95,7 +95,7 @@ class GraduatesController extends Controller
             if ($request->has('avatar')) {
                 $avatarName = time().'.'.$validated['avatar']->extension();
                 $validated['avatar']->storeAs('public/avatars', $avatarName);
-                Image::make(public_path().'/storage/avatars/'.$avatarName)->fit(200)->save($avatarName);
+                Image::make(public_path().'/storage/avatars/'.$avatarName)->fit(100)->save(public_path().'/storage/avatars/'.$avatarName);
             }
 
             //checkbox
