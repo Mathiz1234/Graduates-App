@@ -29,6 +29,20 @@
     </div>
 </section>
 
+@if($graduate->files->count())
+
+<div class="list-group mb-2">
+    <a href="#" class="list-group-item list-group-item-action disabled" aria-disabled="true" tabindex="-2">
+        {{ __('List of .pdf files') }}:
+    </a>
+    @foreach ($graduate->files as $file)
+    <a href="{{ asset('storage/files/'.$file->image_url) }}" target="_blank" class="list-group-item list-group-item-action">{{ $file->filename }}</a>
+    @endforeach
+</div>
+
+@endif
+
+
 @if($graduate->scans->count())
 <section>
     <div class="card graduate-card">
