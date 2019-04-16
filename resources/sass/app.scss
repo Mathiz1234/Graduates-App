@@ -159,3 +159,9 @@ body {
   right: 15px;
   z-index: 2000;
 }
+
+/*--------------File Buttons-------------------*/
+input[type='file']{
+  padding: 0;
+  line-height: 200%;
+}

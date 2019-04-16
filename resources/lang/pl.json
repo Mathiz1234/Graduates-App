@@ -58,7 +58,9 @@
     "Deleted at" : "Usunięty",
     "Create" : "Stwórz",
     "Choose custom avatar" : "Wybierz własny awatar",
-    "Choose files/scans (jpeg, png, bmp, gif, or svg)" : "Wybierz pliki/skany (jpeg, png, bmp, gif, lub svg)",
+    "Choose files/scans (pdf, jpeg, png, bmp, gif, or svg)" : "Wybierz pliki/skany (pdf, jpeg, png, bmp, gif, lub svg)",
     "If checked graduate will be shared": "Jeśli zaznaczysz absolwent będzie udostępniony dla niezalogowanych",
-    "Graduate has been successfully added!" : "Absolwent został pomyślnie dodany"
+    "Graduate has been successfully added!" : "Absolwent został pomyślnie dodany",
+    "Add" : "Dodaj",
+    "Remove" : "Usuń"
 }

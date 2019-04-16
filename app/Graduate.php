@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Scan;
 
 class Graduate extends Model
 {
@@ -20,6 +19,11 @@ class Graduate extends Model
     public function scans()
     {
         return $this->hasMany('App\Scan');
+    }
+
+    public function files()
+    {
+        return $this->hasMany('App\File');
     }
 
     /*Scopes*/
@@ -67,5 +71,13 @@ class Graduate extends Model
     public function addScan($filename)
     {
         return $this->scans()->create(['image_url' => $filename]);
+    }
+
+    public function addFile($filename, $fileOriginName)
+    {
+        return $this->files()->create([
+            'image_url' => $filename,
+            'filename' => $fileOriginName
+        ]);
     }
 }

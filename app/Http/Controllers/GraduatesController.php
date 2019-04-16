@@ -6,6 +6,9 @@ use App\Graduate;
 use App\Scan;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\Exception;
+use Illuminate\Support\Facades\Storage;
 
 class GraduatesController extends Controller
 {
@@ -71,50 +74,92 @@ class GraduatesController extends Controller
     {
         $this->authorize('change', Graduate::class);
 
-        if ($request->has(['name', 'surname', 'matura_year'])) {
-            $validated = $request->validate([
+        try {
+            DB::beginTransaction();
+            if ($request->has(['name', 'surname', 'matura_year'])) {
+                $validated = $request->validate([
 
-            'name' => ['required', 'min:3', 'max:100', 'string'],
+                    'name' => ['required', 'min:3', 'max:100', 'string'],
 
-            'surname' => ['required', 'min:3', 'max:100', 'string'],
+                    'surname' => ['required', 'min:3', 'max:100', 'string'],
 
-            'matura_year' => ['required', 'numeric','max:2155'],
+                    'matura_year' => ['required', 'numeric', 'max:2155'],
 
-            'description' => ['string', 'nullable'],
+                    'description' => ['string', 'nullable'],
 
-            'avatar' => ['image', 'max:2048'],
+                    'avatar' => ['image', 'max:2048'],
 
-            'scans.*' => ['image', 'max:4096']
+                    'scans.*' => ['mimes:pdf,jpg,jpeg,png,bmp,gif,svg', 'max:4096']
 
-        ]);
+                ]);
 
-            $data = \Illuminate\Support\Arr::except($validated, ['avatar','scans']);
+                $data = \Illuminate\Support\Arr::except($validated, ['avatar', 'scans']);
 
-            //avatar
-            $avatarName = 'default.png';
-            if ($request->has('avatar')) {
-                $avatarName = time().'.'.$validated['avatar']->extension();
-                $validated['avatar']->storeAs('public/avatars', $avatarName);
-                Image::make(public_path().'/storage/avatars/'.$avatarName)->fit(100)->save(public_path().'/storage/avatars/'.$avatarName);
-            }
+                //avatar
+                $avatarName = 'default.png';
+                if ($request->has('avatar')) {
+                    if ($validated['avatar']->isValid()) {
+                        $avatarName = time() . '.' . $validated['avatar']->extension();
+                        $validated['avatar']->storeAs('public/avatars', $avatarName);
+                        Image::make(public_path() . '/storage/avatars/' . $avatarName)->fit(100)->save(public_path() . '/storage/avatars/' . $avatarName);
+                    }else{
+                        throw new Exception('Uploaded avatar is invalid');
+                    }
+                }
 
-            //checkbox
-            if ($request->has('shared')) {
-                $data['shared'] = true;
-            }
+                //checkbox
+                if ($request->has('shared')) {
+                    $data['shared'] = true;
+                }
 
-            //creating graduate
-            $data['avatar'] = $avatarName;
-            $graduate = Graduate::create($data);
+                //creating graduate
+                $data['avatar'] = $avatarName;
+                $graduate = Graduate::create($data);
 
-            //scans
-            if ($request->has('scans')) {
-                foreach ($validated['scans'] as $scan) {
-                    $scanName = Scan::getName($scan);
-                    $scan->storeAs('public/scans', $scanName);
-                    $graduate->addScan($scanName);
+                $scansNames = [];
+                //scans
+                if ($request->has('scans')) {
+                    foreach ($validated['scans'] as $scan) {
+                        if ($scan->isValid()) {
+                            $scanName = Scan::getName($scan);
+                            array_push($scansNames,$scanName);
+                            if ($scan->extension() == 'pdf') {
+                                $scan->storeAs('public/files', $scanName);
+                                $graduate->addFile($scanName, $scan->getClientOriginalName());
+                            } else {
+                                $scan->storeAs('public/scans', $scanName);
+                                $graduate->addScan($scanName);
+                            }
+                        }else{
+                            throw new Exception('Uploaded scan is invalid');
+                        }
+                    }
                 }
             }
+            DB::commit();
+        } catch (\PDOException $e) {
+
+            DB::rollBack();
+
+            if($avatarName!='default.png' && Storage::exists('public/avatars/'.$avatarName)){
+                Storage::delete('public/avatars/'.$avatarName);
+            }
+
+
+            if(count($scansNames)!=0){
+                foreach($scansNames as $name){
+                    if(Storage::exists('public/scans/'.$name)){
+                        Storage::delete('public/scans/'.$name);
+                    }elseif(Storage::exists('public/files/'.$name)){
+                        Storage::delete('public/files/'.$name);
+                    }
+                }
+            }
+
+            //dd($e);
+
+            return back()->withInput();
+
         }
 
         return redirect('/graduates')->with('status', 'Graduate has been successfully added!');
@@ -160,11 +205,11 @@ class GraduatesController extends Controller
     }
 
     /**
-    * Soft deleting.
-    *
-    * @param  \App\Graduate  $graduate
-    * @return \Illuminate\Http\Response
-    */
+     * Soft deleting.
+     *
+     * @param  \App\Graduate  $graduate
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Graduate $graduate)
     {
         $this->authorize('change', Graduate::class);
@@ -193,11 +238,11 @@ class GraduatesController extends Controller
     }
 
     /**
-    * Restore deleted graduates.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @return \Illuminate\Http\Response
-    */
+     * Restore deleted graduates.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function restore(Request $request)
     {
         $this->authorize('forceDeleted', Graduate::class);

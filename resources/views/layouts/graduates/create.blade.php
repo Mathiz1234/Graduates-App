@@ -58,33 +58,35 @@
                 </span>
                 @endif
             </div>
-            <div class="form-group">
-                <label for="inputfiles">{{ __('Choose files/scans (jpeg, png, bmp, gif, or svg)') }} max. 4MB</label>
+
+            {{-- <div class="form-group">
+                <label for="inputfiles">{{ __('Choose files/scans (pdf, jpeg, png, bmp, gif, or svg)') }} max. 4MB</label>
                 <input name="scans[]" type="file" class="form-control-file{{ $errors->has('scans.*') ? ' is-invalid' : '' }}" id="inputfiles" multiple>
                 @if ($errors->has('scans.*'))
                 <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('scans.*') }}</strong>
                 </span>
                 @endif
+            </div> --}}
+
+            <div class="form-group">
+              <p>{{ __('Choose files/scans (pdf, jpeg, png, bmp, gif, or svg)') }} max. 4MB</p>
+              <div class="input-group mb-2 increment" >
+                  <input type="file" name="scans[]" class="form-control">
+                  <div class="input-group-btn">
+                    <button class="btn btn-success addFormButton" type="button"><i class="fas fa-plus"></i> {{ __('Add') }}</button>
+                  </div>
+              </div>
+              <div id="clone" hidden>
+                  <div class="input-group control-group mt-2">
+                    <div class="input-group-btn">
+                      <button class="btn btn-danger removeFormButton" type="button"><i class="fas fa-trash-alt"></i> {{ __('Remove') }}</button>
+                    </div>
+                  </div>
+              </div>
             </div>
 
             <button type="submit" class="btn btn-primary mt-1"><i class="fas fa-plus"></i> {{ __('Create') }}</button>
-
-
-            {{-- <div class="input-group control-group increment" >
-                <input type="file" name="filename[]" class="form-control">
-                <div class="input-group-btn">
-                  <button class="btn btn-success add" type="button"><i class="fas fa-plus"></i> Add</button>
-                </div>
-            </div>
-            <div class="clone" hidden>
-                <div class="input-group control-group mt-2">
-                  <input type="file" name="filename[]" class="form-control">
-                  <div class="input-group-btn">
-                    <button class="btn btn-danger remove" type="button"><i class="fas fa-trash-alt"></i> Remove</button>
-                  </div>
-                </div>
-            </div> --}}
         </form>
 
     </div>

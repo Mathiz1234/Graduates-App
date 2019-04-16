@@ -102,18 +102,27 @@ $(document).ready(function(){
     })
 });
 
-// //Create view
-// $(document).ready(function() {
+//Create view
+$(document).ready(function() {
 
-//     $(".add").click(function(){
-//         let html = $(".clone").html();
-//         $(".increment").after(html);
-//         console.log('add');
-//     });
+    $(".addFormButton").click(function(){
+        let path = $(".increment").find('input').val();
+        if(path!='')
+        {
+            let content = $("#clone>div").clone();
+            let input = $(".increment").find('input').clone();
 
-//     $(".remove").click(function(){
-//         console.log('remove');
-//         $(this).parents(".control-group").remove();
-//     });
+            content.closest('div').prepend(input);
+            content.insertAfter(".increment");
 
-// });
+            $(".increment").find('input').val('');
+
+            console.log('add file');
+
+            content.find('button').first().click(function(){
+                console.log('remove file');
+                $(this).parents(".control-group").remove();
+            });
+        }
+    });
+});
