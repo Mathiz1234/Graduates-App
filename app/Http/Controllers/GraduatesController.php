@@ -277,8 +277,28 @@ class GraduatesController extends Controller
                 'id' => ['required', 'integer']
             ]);
 
-            if ($graduate = Graduate::findWithDeleted($data['id'])) {
+            if ($graduate = Graduate::withTrashed()->with(['scans','files'])->find($data['id'])){
+
                 if ($graduate->trashed()) {
+
+                    foreach($graduate->scans as $image){
+                        if (Storage::exists('public/scans/'.$image->image_url)) {
+                            Storage::delete('public/scans/'.$image->image_url);
+                        }
+                    }
+
+                    foreach($graduate->files as $file){
+                        if (Storage::exists('public/files/'.$file->image_url)) {
+                            Storage::delete('public/files/'.$file->image_url);
+                        }
+                    }
+
+                    if($graduate->avatar != 'default.png'){
+                        if (Storage::exists('public/avatars/'.$graduate->avatar)) {
+                            Storage::delete('public/avatars/'.$graduate->avatar);
+                        }
+                    }
+
                     $graduate->forceDelete();
                 }
             }
