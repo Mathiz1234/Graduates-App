@@ -5,6 +5,15 @@
 
 @include('session-status')
 
+@if (session('verified'))
+    <div class="alert alert-success alert-dismissible fade show my-1" role="alert">
+            <i class="fas fa-exclamation-circle"></i> {{ __("Your email address has been verified.") }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="@lang('general.close')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+@endif
+
 @if(auth()->check())
 
 <div class="alert alert-primary text-center my-1"role="alert">

@@ -49,14 +49,7 @@
 {{-- Subcopy --}}
 @isset($actionText)
 @component('mail::subcopy')
-@lang(
-    "If you’re having trouble clicking the \":actionText\" button, copy and paste the URL below\n".
-    'into your web browser: [:actionURL](:actionURL)',
-    [
-        'actionText' => $actionText,
-        'actionURL' => $actionUrl,
-    ]
-)
+@lang('general.password_help_text', ['actionText' => $actionText, 'actionURL' => $actionUrl])
 @endcomponent
 @endisset
 @endcomponent

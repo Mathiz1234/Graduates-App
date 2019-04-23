@@ -27,4 +27,5 @@ return [
     'click' => 'Klik',
     'des' => 'Wyszukaj absolwenta swojej szkoły!',
     'keywords' => 'absolwent, absolwenci, szkoła, dane, ukończenie, system, tabele, spis uczniów, uczniowie, uczeń',
+    "password_help_text" => "Jeśli masz problem z kliknięciem przycisku \":actionText\" , skopiuj i wklej poniższy adres URL do przeglądarki: [:actionURL](:actionURL)"
 ];
