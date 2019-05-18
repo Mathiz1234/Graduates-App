@@ -11,7 +11,7 @@ class Graduate extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['name','surname','shared','matura_year','desciprion','avatar'];
+    protected $fillable = ['name', 'surname', 'shared', 'matura_year', 'description', 'avatar'];
 
 
     /*Relationships*/
@@ -45,15 +45,15 @@ class Graduate extends Model
         return Graduate::when($data, function ($query, $data) {
             foreach ($data as $key => $input) {
                 $query->when($input, function ($query, $value) use ($key) {
-                    return $query->where($key, 'like', '%'.$value.'%');
+                    return $query->where($key, 'like', '%' . $value . '%');
                 });
             }
         })
-        ->when($shared, function ($query) {
-            return $query->shared();
-        })
-        ->orderBy('surname', 'asc')
-        ->paginate(15);
+            ->when($shared, function ($query) {
+                return $query->shared();
+            })
+            ->orderBy('surname', 'asc')
+            ->paginate(15);
     }
 
     public static function getDeletedGraduates()

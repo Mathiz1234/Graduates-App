@@ -18,7 +18,7 @@ class CreateGraduatesTable extends Migration
             $table->boolean('shared')->default(0);
             $table->string('name');
             $table->string('surname')->index();
-            $table->year('matura_year')->index();
+            $table->unsignedSmallInteger('matura_year')->index();
             $table->text('description')->nullable();
             $table->string('avatar')->default('default.png');
             $table->softDeletes();
