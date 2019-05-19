@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Graduate;
-use App\Scan;
 use App\File;
+use App\Scan;
+use App\Graduate;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\DB;
 use PHPUnit\Framework\Exception;
+use Illuminate\Support\Facades\DB;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
 class GraduatesController extends Controller
@@ -76,6 +77,8 @@ class GraduatesController extends Controller
         $this->authorize('change', Graduate::class);
 
         try {
+            $scansNames = [];
+            $avatarName = 'default.png';
             DB::beginTransaction();
             if ($request->has(['name', 'surname', 'matura_year'])) {
                 $validated = $request->validate([
@@ -97,7 +100,6 @@ class GraduatesController extends Controller
                 $data = \Illuminate\Support\Arr::except($validated, ['avatar', 'scans']);
 
                 //avatar
-                $avatarName = 'default.png';
                 if ($request->has('avatar')) {
                     if ($validated['avatar']->isValid()) {
                         $avatarName = time() . '.' . $validated['avatar']->extension();
@@ -117,7 +119,6 @@ class GraduatesController extends Controller
                 $data['avatar'] = $avatarName;
                 $graduate = Graduate::create($data);
 
-                $scansNames = [];
                 //scans
                 if ($request->has('scans')) {
                     foreach ($validated['scans'] as $scan) {
@@ -138,7 +139,7 @@ class GraduatesController extends Controller
                 }
             }
             DB::commit();
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
 
             DB::rollBack();
 
@@ -164,7 +165,7 @@ class GraduatesController extends Controller
             return back()->withInput();
         }
 
-        return redirect('/graduates')->with('status', 'Graduate has been successfully added!');
+        return redirect('/graduates/' . $graduate->id)->with('status', 'Graduate has been successfully added!');
     }
 
     /**
@@ -208,6 +209,9 @@ class GraduatesController extends Controller
         $this->authorize('change', Graduate::class);
 
         try {
+            $storageArray = [];
+            $avatarName = 'default.png';
+            $scansNames = [];
             DB::beginTransaction();
             if ($request->has(['name', 'surname', 'matura_year'])) {
                 $validated = $request->validate([
@@ -231,7 +235,8 @@ class GraduatesController extends Controller
                 if ($request->has('if-avatar-deleted')) {
                     if (($request->input('if-avatar-deleted') != 'false') && ($graduate->avatar != 'default.png')) {
                         if (Storage::exists('public/avatars/' . $graduate->avatar)) {
-                            Storage::delete('public/avatars/' . $graduate->avatar);
+                            $storageArray = Arr::prepend($storageArray, 'public/avatars/' . $graduate->avatar);
+                            //Storage::delete('public/avatars/' . $graduate->avatar);
                             $data['avatar'] = 'default.png';
                         }
                     }
@@ -272,6 +277,7 @@ class GraduatesController extends Controller
                             foreach ($oldFiles as $key => $value) {
                                 if ($key == $file) {
                                     $oldFiles[$key] = true;
+                                    break;
                                 }
                             }
                         }
@@ -281,7 +287,8 @@ class GraduatesController extends Controller
                         if ($value == false) {
                             $file = File::find($key);
                             if (Storage::exists('public/files/' . $file->image_url)) {
-                                Storage::delete('public/files/' . $file->image_url);
+                                $storageArray = Arr::prepend($storageArray, 'public/files/' . $file->image_url);
+                                //Storage::delete('public/files/' . $file->image_url);
                             }
                             $file->delete();
                         }
@@ -302,6 +309,7 @@ class GraduatesController extends Controller
                             foreach ($oldScans as $key => $value) {
                                 if ($key == $scan) {
                                     $oldScans[$key] = true;
+                                    break;
                                 }
                             }
                         }
@@ -311,14 +319,14 @@ class GraduatesController extends Controller
                         if ($value == false) {
                             $scan = Scan::find($key);
                             if (Storage::exists('public/scans/' . $scan->image_url)) {
-                                Storage::delete('public/scans/' . $scan->image_url);
+                                $storageArray = Arr::prepend($storageArray, 'public/scans/' . $scan->image_url);
+                                //Storage::delete('public/scans/' . $scan->image_url);
                             }
                             $scan->delete();
                         }
                     }
                 }
 
-                $scansNames = [];
                 // new scans
                 if ($request->has('scans')) {
                     foreach ($validated['scans'] as $scan) {
@@ -339,11 +347,32 @@ class GraduatesController extends Controller
                 }
             }
             DB::commit();
-        } catch (\PDOException $e) {
+
+            foreach ($storageArray as $string) {
+                Storage::delete($string);
+            }
+        } catch (\Exception $e) {
 
             DB::rollBack();
 
-            //dd($e);
+            if ($request->has('if-avatar-deleted') && $avatarName != 'default.png' && Storage::exists('public/avatars/' . $avatarName)) {
+                Storage::delete('public/avatars/' . $avatarName);
+            }
+
+
+            if (isset($scansNames)) {
+                if (count($scansNames) != 0) {
+                    foreach ($scansNames as $name) {
+                        if (Storage::exists('public/scans/' . $name)) {
+                            Storage::delete('public/scans/' . $name);
+                        } elseif (Storage::exists('public/files/' . $name)) {
+                            Storage::delete('public/files/' . $name);
+                        }
+                    }
+                }
+            }
+
+            dd($e);
 
             return back()->withInput();
         }

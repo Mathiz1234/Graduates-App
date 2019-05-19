@@ -86,6 +86,14 @@
               </div>
             </div>
 
+            @if ($errors->has('scans.*'))
+            <div>
+                  <span style="width: 100%;margin-top: 0.25rem;font-size: 80%;color: #e3342f;" role="alert">
+                  <strong>{{ $errors->first('scans.*') }}</strong>
+                  </span>
+            </div>
+            @endif
+
             <button type="submit" class="btn btn-primary mt-1"><i class="fas fa-plus"></i> {{ __('Create') }}</button>
         </form>
 

@@ -26,7 +26,7 @@
     <div class="row">
         <div class="graduate-card__text p-1 text-justify">
             <div class="card-body">
-            <p class="card-text">{{ __('Description') }}: {{ $graduate->description }}</p>
+            <p class="card-text">{{ __('Description') }}: {!! nl2br(e($graduate->description)) !!}</p>
             <p class="card-text"><small class="text-muted">{{ __('Created at') }}: {{ $graduate->created_at }}</small></p>
             <p class="card-text"><small class="text-muted">{{ __('Last updated at') }}: {{ $graduate->updated_at }}</small></p>
             </div>
