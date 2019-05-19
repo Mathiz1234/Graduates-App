@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Graduate;
 use App\Scan;
+use App\File;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\DB;
@@ -190,7 +191,9 @@ class GraduatesController extends Controller
      */
     public function edit(Graduate $graduate)
     {
-        //
+        $this->authorize('change', Graduate::class);
+
+        return view('layouts.graduates.edit', compact('graduate'));
     }
 
     /**
@@ -202,7 +205,150 @@ class GraduatesController extends Controller
      */
     public function update(Request $request, Graduate $graduate)
     {
-        //
+        $this->authorize('change', Graduate::class);
+
+        try {
+            DB::beginTransaction();
+            if ($request->has(['name', 'surname', 'matura_year'])) {
+                $validated = $request->validate([
+
+                    'name' => ['required', 'min:3', 'max:100', 'string'],
+
+                    'surname' => ['required', 'min:3', 'max:100', 'string'],
+
+                    'matura_year' => ['required', 'numeric', 'max:2155'],
+
+                    'description' => ['string', 'nullable'],
+
+                    'avatar' => ['image', 'max:2048'],
+
+                    'scans.*' => ['mimes:pdf,jpg,jpeg,png,bmp,gif,svg', 'max:4096']
+                ]);
+
+                $data = \Illuminate\Support\Arr::except($validated, ['avatar', 'scans']);
+
+                //avatar
+                if ($request->has('if-avatar-deleted')) {
+                    if (($request->input('if-avatar-deleted') != 'false') && ($graduate->avatar != 'default.png')) {
+                        if (Storage::exists('public/avatars/' . $graduate->avatar)) {
+                            Storage::delete('public/avatars/' . $graduate->avatar);
+                            $data['avatar'] = 'default.png';
+                        }
+                    }
+                    if ($request->has('avatar')) {
+                        if ($validated['avatar']->isValid()) {
+                            $avatarName = time() . '.' . $validated['avatar']->extension();
+                            $validated['avatar']->storeAs('public/avatars', $avatarName);
+                            Image::make(public_path() . '/storage/avatars/' . $avatarName)->fit(100)->save(public_path() . '/storage/avatars/' . $avatarName);
+                            $data['avatar'] = $avatarName;
+                        } else {
+                            throw new Exception('Uploaded avatar is invalid');
+                        }
+                    }
+                }
+
+                //checkbox
+                if ($request->has('shared')) {
+                    $data['shared'] = true;
+                } else {
+                    $data['shared'] = false;
+                }
+
+                //creating graduate
+                $graduate->update($data);
+
+
+                //old files
+                if ($request->has('old-files')) {
+                    $oldFiles = [];
+
+                    foreach ($graduate->files as $oldFile) {
+                        $oldFiles[$oldFile->id] = false;
+                    }
+
+                    foreach ($request->input('old-files.*') as $file) {
+
+                        if ($file != false) {
+                            foreach ($oldFiles as $key => $value) {
+                                if ($key == $file) {
+                                    $oldFiles[$key] = true;
+                                }
+                            }
+                        }
+                    }
+
+                    foreach ($oldFiles as $key => $value) {
+                        if ($value == false) {
+                            $file = File::find($key);
+                            if (Storage::exists('public/files/' . $file->image_url)) {
+                                Storage::delete('public/files/' . $file->image_url);
+                            }
+                            $file->delete();
+                        }
+                    }
+                }
+
+                //old scans
+                if ($request->has('old-scans')) {
+                    $oldScans = [];
+
+                    foreach ($graduate->scans as $oldScan) {
+                        $oldScans[$oldScan->id] = false;
+                    }
+
+                    foreach ($request->input('old-scans.*') as $scan) {
+
+                        if ($scan != false) {
+                            foreach ($oldScans as $key => $value) {
+                                if ($key == $scan) {
+                                    $oldScans[$key] = true;
+                                }
+                            }
+                        }
+                    }
+
+                    foreach ($oldScans as $key => $value) {
+                        if ($value == false) {
+                            $scan = Scan::find($key);
+                            if (Storage::exists('public/scans/' . $scan->image_url)) {
+                                Storage::delete('public/scans/' . $scan->image_url);
+                            }
+                            $scan->delete();
+                        }
+                    }
+                }
+
+                $scansNames = [];
+                // new scans
+                if ($request->has('scans')) {
+                    foreach ($validated['scans'] as $scan) {
+                        if ($scan->isValid()) {
+                            $scanName = Scan::getName($scan);
+                            array_push($scansNames, $scanName);
+                            if ($scan->extension() == 'pdf') {
+                                $scan->storeAs('public/files', $scanName);
+                                $graduate->addFile($scanName, $scan->getClientOriginalName());
+                            } else {
+                                $scan->storeAs('public/scans', $scanName);
+                                $graduate->addScan($scanName);
+                            }
+                        } else {
+                            throw new Exception('Uploaded scan is invalid');
+                        }
+                    }
+                }
+            }
+            DB::commit();
+        } catch (\PDOException $e) {
+
+            DB::rollBack();
+
+            //dd($e);
+
+            return back()->withInput();
+        }
+
+        return redirect('/graduates/' . $graduate->id)->with('status', 'Graduate has been successfully updated!');
     }
 
     /**

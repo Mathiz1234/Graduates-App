@@ -75,6 +75,13 @@
     "Reset Password Notification" : "Reset hasła",
     "You are receiving this email because we received a password reset request for your account." : "Otrzymujesz ten mail, ponieważ otrzymaliśmy prośbę o zresetowanie hasła do Twojego konta.",
     "If you did not request a password reset, no further action is required." : "Jeśli nie zażądałeś zresetowania hasła, zignoruj tą wiadomość.",
-    "Your email address has been verified." : "Twój adres e mail został zweryfikowany."
+    "Your email address has been verified." : "Twój adres e mail został zweryfikowany.",
+    "Delete" : "Usuń",
+    "Edit" : "Zmień",
+    "Click the image you want to delete": "Kliknij skan, który chcesz usunąć",
+    "Graduate has been successfully updated!" : "Absolwent został pomyślnie zmnieniony!",
+    "Shared" : "Udostępniony",
+    "yes" : "tak",
+    "no" : "nie"
 
 }

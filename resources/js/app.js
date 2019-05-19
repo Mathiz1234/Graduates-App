@@ -126,3 +126,50 @@ $(document).ready(function() {
         }
     });
 });
+
+//Delete avatar button
+$(document).ready(function(){
+
+    $('#delete_avatar').click(function(){
+        $('html').css('scroll-behavior', 'auto');
+        $(this).next('input').attr('value', 'true');
+        $('#old-avatar-section').hide('fast', function(){
+            $('#new-avatar-section').show();
+            setTimeout(function(){
+                $('html').css('scroll-behavior', 'smooth');
+            }, 1000);
+        });
+    });
+
+});
+
+//Delete files button
+$(document).ready(function(){
+
+    $('.files-delete-button').click(function(){
+        $('html').css('scroll-behavior', 'auto');
+        $(this).next('input').attr('value', 'false');
+        $(this).parent().hide('fast', function(){
+            setTimeout(function(){
+                $('html').css('scroll-behavior', 'smooth');
+            }, 1000);
+        });
+    });
+
+});
+
+//Delete scans button
+$(document).ready(function(){
+
+    $('.graduate-card_img--delete').click(function(e){
+        e.preventDefault();
+        $('html').css('scroll-behavior', 'auto');
+        $(this).next('input').attr('value', 'false');
+        $(this).parent().hide('fast', function(){
+            setTimeout(function(){
+                $('html').css('scroll-behavior', 'smooth');
+            }, 1000);
+        });
+    });
+
+});

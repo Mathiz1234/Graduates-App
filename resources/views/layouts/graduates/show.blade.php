@@ -3,6 +3,8 @@
 
 @section('content')
 
+@include('session-status')
+
 {{-- Graduate table --}}
 
 <section class="card my-2 shadow-sm rounded graduate-card">
@@ -15,6 +17,9 @@
         <p class="card-text">{{ __('Name') }}: <strong>{{ $graduate->name }}</strong></p>
         <p class="card-text">{{ __('Surname') }}: <strong>{{ $graduate->surname }}</strong></p>
         <p class="card-text">{{ __('Matura year') }}: <strong>{{ $graduate->matura_year }}</strong></p>
+        @can('change', App\Graduate::class)
+        <p class="card-text">{{ __('Shared') }}: <strong> @lang('general.' . ($graduate->shared ? 'yes' : 'no' ))</strong></p>
+        @endcan
         </div>
       </div>
     </div>

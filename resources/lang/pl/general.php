@@ -9,6 +9,8 @@ return [
     |
     */
 
+    'yes' => 'tak',
+    'no' => 'nie',
     'close' => 'Zamknij',
     'rules' => "Regulamin",
     'graduate' => "Absolwenci",
