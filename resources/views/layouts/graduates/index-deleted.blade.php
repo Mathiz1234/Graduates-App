@@ -45,11 +45,8 @@
 
   @if (count($graduates) == 0)
 
-  <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+  <div class="alert alert-danger mt-2" role="alert">
       <strong>{{ __('No deleted graduates.') }}</strong>
-      <button type="button" class="close" data-dismiss="alert" aria-label="@lang('general.close')">
-        <span aria-hidden="true">&times;</span>
-      </button>
   </div>
 
   @endif
