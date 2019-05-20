@@ -1,6 +1,8 @@
 
 @extends('layout')
 
+@section('title', __('titles.manage').' - '.__('general.graduate'))
+
 @section('content')
 
 @include('session-status')

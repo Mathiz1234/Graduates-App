@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, shrink-to-fit=no" />
-        <title>@lang('general.graduate')</title>
+        <title>@yield('title', __('general.graduate'))</title>
         <meta name="description" content="@lang('general.des')"/>
         <meta name="keywords" content="@lang('general.keywords')"/>
         <meta http-equiv="X-UA-Compatibile" content="IE=edge,chrome=1"/>

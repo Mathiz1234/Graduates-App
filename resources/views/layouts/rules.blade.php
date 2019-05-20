@@ -1,6 +1,8 @@
 
 @extends('layout')
 
+@section('title', __('titles.rules').' - '.__('general.graduate'))
+
 @section('content')
 
 

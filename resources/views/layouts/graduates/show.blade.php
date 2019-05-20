@@ -1,6 +1,8 @@
 
 @extends('layout')
 
+@section('title', __('titles.show', ['surname' => $graduate->surname, 'name' => $graduate->name]).' - '.__('general.graduate'))
+
 @section('content')
 
 @include('session-status')

@@ -1,6 +1,8 @@
 
 @extends('layout')
 
+@section('title', __('titles.profile').' - '.__('general.graduate'))
+
 @section('content')
 
 <section class="row justify-content-center">

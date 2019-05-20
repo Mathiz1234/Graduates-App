@@ -1,6 +1,8 @@
 
 @extends('layout')
 
+@section('title', __('titles.search').' - '.__('general.graduate'))
+
 @section('content')
 
 {{-- Search bar --}}

@@ -1,6 +1,8 @@
 
 @extends('layout')
 
+@section('title', __('titles.edit').' - '.__('general.graduate'))
+
 @section('content')
 
 <section class="card mt-2">
