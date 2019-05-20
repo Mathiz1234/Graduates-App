@@ -16473,3 +16473,21 @@ input[type=file] {
   line-height: 200%;
 }
 
+/*-----------Sliders--------------*/
+
+.carousel-inner img {
+  border-radius: 1%;
+}
+
+.carousel-inner .carousel-caption-new {
+  position: absolute;
+  bottom: 20px;
+  z-index: 10;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #f3eeee;
+  text-align: center;
+  background-color: rgba(128, 128, 128, 0.95);
+  width: 100%;
+}
+
