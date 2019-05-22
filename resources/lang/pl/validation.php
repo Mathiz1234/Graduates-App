@@ -128,8 +128,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'code' => [
+            'in' => 'Kod weryfikacyjny jest nieprawidłowy.',
         ],
     ],
 

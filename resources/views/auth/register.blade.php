@@ -60,6 +60,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="code" class="col-md-4 col-form-label text-md-right">{{ __('Access code') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="code" type="password" class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}" name="code" required>
+
+                                @if ($errors->has('code'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('code') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
