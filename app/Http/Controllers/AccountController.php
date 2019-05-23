@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -122,7 +123,7 @@ class AccountController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'email' => ['required', 'string', 'email', 'max:255',  Rule::unique('users')->ignore(auth()->user()->id)],
                 'password' => ['required', 'string'],
             ]);
 
@@ -141,13 +142,20 @@ class AccountController extends Controller
             } else {
                 $data = Arr::only($data, ['name', 'email']);
 
+                $changeEmail = false;
                 if ($data['email'] != auth()->user()->email) {
+                    $changeEmail = true;
                     $data['email_verified_at'] = null;
                 }
 
                 auth()->user()->update($data);
 
-                return redirect('/email/resend');
+                if ($changeEmail == true) {
+                    return redirect('/email/resend');
+                } else {
+                    session()->flash('status', 'Personal data has been changed.');
+                    return redirect('/account');
+                }
             }
         }
 
