@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use Validator;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -92,30 +92,63 @@ class AccountController extends Controller
     */
     public function change(Request $request)
     {
+        if ($request->has(['new-password', 'old-password'])) {
 
-        $validator = Validator::make($request->all(), [
-            'new-password' => ['required', 'string', 'min:6', 'confirmed'],
-            'old-password' => ['required', 'string']
-        ]);
+            $validator = Validator::make($request->all(), [
+                'new-password' => ['required', 'string', 'min:6', 'confirmed'],
+                'old-password' => ['required', 'string']
+            ]);
 
-        $validator->after(function ($validator) {
             $data = $validator->getData();
-            if (Hash::check($data['old-password'], auth()->user()->password)) {
 
+            $validator->after(function ($validator) use ($data) {
+                if (!Hash::check($data['old-password'], auth()->user()->password)) {
+                    $validator->errors()->add('old-password', 'Invalid old password!');
+                }
+            });
+
+            if ($validator->fails()) {
+                return back()
+                    ->withErrors($validator)
+                    ->withInput();
+            } else {
                 auth()->user()->fill([
                     'password' => Hash::make($data['new-password'])
                 ])->save();
 
                 session()->flash('status', 'Password has been changed.');
-            } else {
-                $validator->errors()->add('old-password', 'Invalid old password!');
             }
-        });
+        } elseif ($request->has(['name', 'email', 'password'])) {
 
-        if ($validator->fails()) {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
+            $validator = Validator::make($request->all(), [
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string'],
+            ]);
+
+            $data = $validator->getData();
+
+            $validator->after(function ($validator) use ($data) {
+                if (!Hash::check($data['password'], auth()->user()->password)) {
+                    $validator->errors()->add('password', 'Invalid password!');
+                }
+            });
+
+            if ($validator->fails()) {
+                return back()
+                    ->withErrors($validator)
+                    ->withInput();
+            } else {
+                $data = Arr::only($data, ['name', 'email']);
+
+                if ($data['email'] != auth()->user()->email) {
+                    $data['email_verified_at'] = null;
+                }
+
+                auth()->user()->update($data);
+
+                return redirect('/email/resend');
+            }
         }
 
         return redirect('/account');

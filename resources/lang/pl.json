@@ -98,5 +98,6 @@
     "Old password" : "Stare hasło",
     "Change" : "Zmień",
     "Invalid old password!" : "Niepoprawne stare hasło!",
-    "Password has been changed." : "Hasło zostało zmienione."
+    "Password has been changed." : "Hasło zostało zmienione.",
+    "Invalid password!" : "Niepoprawne hasło!"
 }
