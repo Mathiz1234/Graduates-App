@@ -139,7 +139,7 @@ class GraduatesController extends Controller
                 }
             }
             DB::commit();
-        } catch (\Exception $e) {
+        } catch (\PDOException $e) {
 
             DB::rollBack();
 
@@ -351,7 +351,7 @@ class GraduatesController extends Controller
             foreach ($storageArray as $string) {
                 Storage::delete($string);
             }
-        } catch (\Exception $e) {
+        } catch (\PDOException $e) {
 
             DB::rollBack();
 
@@ -372,7 +372,7 @@ class GraduatesController extends Controller
                 }
             }
 
-            dd($e);
+            //dd($e);
 
             return back()->withInput();
         }
