@@ -1,12 +1,13 @@
 {
-    "name": "laravel/laravel",
+    "name": "graduate/graduate",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "The graduate system",
     "keywords": [
         "framework",
-        "laravel"
+        "laravel",
+        "graduate"
     ],
-    "license": "MIT",
+    "license": "All rights reserved",
     "require": {
         "php": "^7.1.3",
         "fideloper/proxy": "^4.0",
