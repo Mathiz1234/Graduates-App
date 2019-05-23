@@ -152,7 +152,8 @@ return [
         'password_confirmation' => 'potwierdzenie hasła',
         'matura_year' => 'rok matury',
         'description' => 'opis',
-        'scans' => 'skany'
+        'scans' => 'skany',
+        'new-password' => 'nowe hasło'
     ],
 
 ];

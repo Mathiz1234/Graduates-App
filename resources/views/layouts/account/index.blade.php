@@ -5,6 +5,8 @@
 
 @section('content')
 
+@include('session-status')
+
 <section class="row justify-content-center">
 
     <div class="card my-2 col col-lg-6">

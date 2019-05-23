@@ -92,6 +92,11 @@
     "Thanks to the cloud you can use the system all over the world." : "Dzięki chmurze możesz korzystać z systemu na całym świecie.",
     "Save, edit, delete ..." : "Zapisz, edytuj, usuwaj ...",
     "Log into the system to get more options" : "Zaloguj się do systemu, aby uzyskać więcej możliwości",
-    "Access code" : "Kod dostępu"
-
+    "Access code" : "Kod dostępu",
+    "New password" : "Nowe hasło",
+    "Confirm New password" : "Potwierdź nowe hasło",
+    "Old password" : "Stare hasło",
+    "Change" : "Zmień",
+    "Invalid old password!" : "Niepoprawne stare hasło!",
+    "Password has been changed." : "Hasło zostało zmienione."
 }

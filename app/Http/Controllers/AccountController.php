@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
@@ -42,27 +45,79 @@ class AccountController extends Controller
 
         $data = $request->validate([
 
-            'promotion' => ['required','string'],
+            'promotion' => ['required', 'string'],
 
             'id' => ['required', 'integer']
         ]);
 
         if ($data['promotion'] == 'up') {
             if (DB::table('users')
-            ->where('id', $data['id'])
-            ->whereIn('role', [1,2])
-            ->increment('role')) {
+                ->where('id', $data['id'])
+                ->whereIn('role', [1, 2])
+                ->increment('role')
+            ) {
                 session()->flash('status', 'Successfully increased permissions!');
             }
         } elseif ($data['promotion'] == 'down') {
             if (DB::table('users')
-            ->where('id', $data['id'])
-            ->whereIn('role', [2,3])
-            ->decrement('role')) {
+                ->where('id', $data['id'])
+                ->whereIn('role', [2, 3])
+                ->decrement('role')
+            ) {
                 session()->flash('status', 'Successfully decreased permissions!');
             }
         }
 
         return redirect('/account/management');
+    }
+
+    /*
+        Show password form
+    */
+    public function password()
+    {
+        return view('layouts.account.change-password');
+    }
+
+    /*
+        Show change form
+    */
+    public function show()
+    {
+        return view('layouts.account.change-form');
+    }
+
+    /*
+        Change password or other personal data
+    */
+    public function change(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'new-password' => ['required', 'string', 'min:6', 'confirmed'],
+            'old-password' => ['required', 'string']
+        ]);
+
+        $validator->after(function ($validator) {
+            $data = $validator->getData();
+            if (Hash::check($data['old-password'], auth()->user()->password)) {
+
+                auth()->user()->fill([
+                    'password' => Hash::make($data['new-password'])
+                ])->save();
+
+                session()->flash('status', 'Password has been changed.');
+            } else {
+                $validator->errors()->add('old-password', 'Invalid old password!');
+            }
+        });
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        return redirect('/account');
     }
 }

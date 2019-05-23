@@ -17,9 +17,9 @@ Route::get('language', 'PagesController@localization');
 
 Route::prefix('account')->group(function () {
     Route::get('/', 'AccountController@index');
-    Route::post('/', 'AccountController@');
-    Route::get('/change', 'AccountController@');
-    Route::get('/change/password', 'AccountController@');
+    Route::post('/', 'AccountController@change');
+    Route::get('/change', 'AccountController@show');
+    Route::get('/change/password', 'AccountController@password');
     Route::get('/management', 'AccountController@management_index');
     Route::post('/management', 'AccountController@management_change_permissions');
 });
