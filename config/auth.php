@@ -99,4 +99,6 @@ return [
         ],
     ],
 
+    'security-key' => env('AUTH_KEY', '123456'),
+
 ];
