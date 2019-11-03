@@ -58,7 +58,7 @@
                 <header><h4 class="text-muted">{{__('Avatar')}} :</h4></header>
                 <div class="w-100"></div>
                 <div class="col-4 col-lg-2 d-flex align-items-start graduate-card__avatar m-2">
-                    <img src="{{ asset('storage/avatars/'.$graduate->avatar) }}" class="card-img p-1" alt="avatar">
+                    <img src="{{ asset('uploads/public/avatars/'.$graduate->avatar) }}" class="card-img p-1" alt="avatar">
                 </div>
                 <div class="d-flex align-items-center justify-content-center m-2">
                     <button type="button" id="delete_avatar" class="btn btn-danger mt-1"><i class="fas fa-trash"></i> {{ __('Delete') }}</button>
@@ -84,7 +84,7 @@
                 </a>
                 @foreach ($graduate->files as $file)
                 <li class="list-group-item list-group-item-action">
-                <a href="{{ asset('storage/files/'.$file->image_url) }}" target="_blank">{{ $file->filename }}</a>
+                <a href="{{ asset('uploads/public/files/'.$file->image_url) }}" target="_blank">{{ $file->filename }}</a>
                 <button type="button" class="btn btn-danger ml-1 files-delete-button"><i class="fas fa-trash"></i> {{ __('Delete') }}</button>
                 <input type="text" name="old-files[]" value="{{$file->id}}" hidden>
                 </li>
@@ -102,7 +102,7 @@
                     <div class="card-body row">
                     @foreach ($graduate->scans as $scan)
                     <div style="max-height: 400px; overflow:hidden; display:flex;" class="col-12 col-lg-6 p-1 graduate-card__img align-items-center">
-                        <img src="{{ asset('storage/scans/'.$scan->image_url) }}" class="graduate-card__img--file img-fluid rounded border border-success" alt="@lang('general.scan')">
+                        <img src="{{ asset('uploads/public/scans/'.$scan->image_url) }}" class="graduate-card__img--file img-fluid rounded border border-success" alt="@lang('general.scan')">
                         <a class="graduate-card__img--link graduate-card_img--delete" href="#">{{__('Delete')}}<i class="fas fa-trash"></i></a>
                         <input type="text" name="old-scans[]" value="{{$scan->id}}" hidden>
                     </div>

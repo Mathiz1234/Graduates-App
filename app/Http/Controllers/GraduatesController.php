@@ -104,7 +104,7 @@ class GraduatesController extends Controller
                     if ($validated['avatar']->isValid()) {
                         $avatarName = time() . '.' . $validated['avatar']->extension();
                         $validated['avatar']->storeAs('public/avatars', $avatarName);
-                        Image::make(public_path() . '/storage/avatars/' . $avatarName)->fit(100)->save(public_path() . '/storage/avatars/' . $avatarName);
+                        Image::make(public_path() . '/uploads/public/avatars/' . $avatarName)->fit(100)->save(public_path() . '/uploads/public/avatars/' . $avatarName);
                     } else {
                         throw new Exception('Uploaded avatar is invalid');
                     }
@@ -244,7 +244,7 @@ class GraduatesController extends Controller
                         if ($validated['avatar']->isValid()) {
                             $avatarName = time() . '.' . $validated['avatar']->extension();
                             $validated['avatar']->storeAs('public/avatars', $avatarName);
-                            Image::make(public_path() . '/storage/avatars/' . $avatarName)->fit(100)->save(public_path() . '/storage/avatars/' . $avatarName);
+                            Image::make(public_path() . '/uploads/public/avatars/' . $avatarName)->fit(100)->save(public_path() . '/uploads/public/avatars/' . $avatarName);
                             $data['avatar'] = $avatarName;
                         } else {
                             throw new Exception('Uploaded avatar is invalid');
