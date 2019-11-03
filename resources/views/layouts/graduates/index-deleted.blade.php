@@ -25,6 +25,7 @@
           <p class="card-text"><small class="text-muted">{{ __('Created at') }}: {{ $graduate->created_at }}</small></p>
           <p class="card-text"><small class="text-muted">{{ __('Last updated at') }}: {{ $graduate->updated_at }}</small></p>
           <p class="card-text"><small class="text-muted">{{ __('Deleted at') }}: {{ $graduate->deleted_at }}</small></p>
+          <p class="card-text"><small class="text-muted">{{ __('Deleted by') }}: {{ $graduate->editor->name.", ".$graduate->editor->email }}</small></p>
           <form class="d-inline-block mb-1" method="POST" action="{{ url('graduates/deleted') }}">
             <input type="hidden" name="id" value="{{ $graduate->id }}">
             @csrf

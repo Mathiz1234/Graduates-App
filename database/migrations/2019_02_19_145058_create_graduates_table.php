@@ -21,6 +21,7 @@ class CreateGraduatesTable extends Migration
             $table->unsignedSmallInteger('matura_year')->index();
             $table->text('description')->nullable();
             $table->string('avatar')->default('default.png');
+            $table->integer('edited_by');
             $table->softDeletes();
             $table->timestamps();
         });

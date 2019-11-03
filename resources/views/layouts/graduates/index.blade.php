@@ -72,6 +72,9 @@
             <p class="card-text">{{ __('Matura year') }}: {{ $graduate->matura_year }}</p>
             <p class="card-text"><small class="text-muted">{{ __('Created at') }}: {{ $graduate->created_at }}</small></p>
             <p class="card-text"><small class="text-muted">{{ __('Last updated at') }}: {{ $graduate->updated_at }}</small></p>
+            @can('forceDeleted', App\Graduate::class)
+            <p class="card-text"><small class="text-muted">{{ __('Last edited by') }}: {{ $graduate->editor->name.", ".$graduate->editor->email }}</small></p>
+            @endcan
             </div>
           </div>
         </div>

@@ -100,5 +100,7 @@
     "Invalid old password!" : "Niepoprawne stare hasło!",
     "Password has been changed." : "Hasło zostało zmienione.",
     "Invalid password!" : "Niepoprawne hasło!",
-    "Personal data has been changed." : "Dane osobowe zostały zmienione."
+    "Personal data has been changed." : "Dane osobowe zostały zmienione.",
+    "Last edited by": "Ostatnio aktualizowany przez",
+    "Deleted by": "Usunięty przez"
 }

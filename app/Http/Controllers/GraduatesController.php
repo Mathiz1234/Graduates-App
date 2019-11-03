@@ -117,6 +117,7 @@ class GraduatesController extends Controller
 
                 //creating graduate
                 $data['avatar'] = $avatarName;
+                $data['edited_by'] = auth()->user()->id;
                 $graduate = Graduate::create($data);
 
                 //scans
@@ -259,6 +260,7 @@ class GraduatesController extends Controller
                     $data['shared'] = false;
                 }
 
+                $data['edited_by'] = auth()->user()->id;
                 //creating graduate
                 $graduate->update($data);
 
@@ -389,6 +391,10 @@ class GraduatesController extends Controller
     public function destroy(Graduate $graduate)
     {
         $this->authorize('change', Graduate::class);
+
+        $graduate->edited_by = auth()->user()->id;
+
+        $graduate->save();
 
         $graduate->delete();
 

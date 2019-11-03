@@ -11,7 +11,7 @@ class Graduate extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['name', 'surname', 'shared', 'matura_year', 'description', 'avatar'];
+    protected $fillable = ['name', 'surname', 'shared', 'matura_year', 'description', 'avatar', 'edited_by'];
 
 
     /*Relationships*/
@@ -24,6 +24,11 @@ class Graduate extends Model
     public function files()
     {
         return $this->hasMany('App\File');
+    }
+
+    public function editor()
+    {
+        return $this->belongsTo('App\User', 'edited_by', 'id');
     }
 
     /*Scopes*/
