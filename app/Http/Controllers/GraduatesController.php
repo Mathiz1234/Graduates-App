@@ -289,7 +289,7 @@ class GraduatesController extends Controller
                         if ($value == false) {
                             $file = File::find($key);
                             if (Storage::exists('files/' . $file->image_url)) {
-                                $storageArray = Arr::prepend($storageArray, 'files/' . $file->image_url);
+                                //$storageArray = Arr::prepend($storageArray, 'files/' . $file->image_url);
                                 //Storage::delete('files/' . $file->image_url);
                             }
                             $file->delete();
@@ -321,7 +321,7 @@ class GraduatesController extends Controller
                         if ($value == false) {
                             $scan = Scan::find($key);
                             if (Storage::exists('scans/' . $scan->image_url)) {
-                                $storageArray = Arr::prepend($storageArray, 'scans/' . $scan->image_url);
+                                //$storageArray = Arr::prepend($storageArray, 'scans/' . $scan->image_url);
                                 //Storage::delete('scans/' . $scan->image_url);
                             }
                             $scan->delete();
@@ -350,9 +350,9 @@ class GraduatesController extends Controller
             }
             DB::commit();
 
-            foreach ($storageArray as $string) {
-                Storage::delete($string);
-            }
+            // foreach ($storageArray as $string) {
+            //     Storage::delete($string);
+            // }
         } catch (\PDOException $e) {
 
             DB::rollBack();
@@ -442,6 +442,16 @@ class GraduatesController extends Controller
         }
 
         return redirect('/graduates')->with('status', 'The graduate has been restored!');
+    }
+
+    public function restoreFiles(Graduate $graduate){
+        $this->authorize('forceDeleted', Graduate::class);
+
+        $graduate->files()->restore();
+        $graduate->scans()->restore();
+
+        return redirect('/graduates/' . $graduate->id)->with('status', 'Restore deleted files!');
+
     }
 
     /**

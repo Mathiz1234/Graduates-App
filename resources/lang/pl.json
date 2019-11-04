@@ -102,5 +102,6 @@
     "Invalid password!" : "Niepoprawne hasło!",
     "Personal data has been changed." : "Dane osobowe zostały zmienione.",
     "Last edited by": "Ostatnio aktualizowany przez",
-    "Deleted by": "Usunięty przez"
+    "Deleted by": "Usunięty przez",
+    "Restore deleted files!": "Przywrócono usunięte pliki!"
 }

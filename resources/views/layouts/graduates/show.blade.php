@@ -77,8 +77,18 @@
 
         @csrf
     <button type="submit" class="btn btn-primary">@lang('general.delete')</button>
-  </form>
+    </form>
     @endcan
+    @if((count($graduate->files()->onlyTrashed()->get()) + count($graduate->scans()->onlyTrashed()->get())) > 0)
+    @can('forceDeleted', App\Graduate::class)
+    <form class="d-inline-block mx-2" method="POST" action="{{ url($graduate->id.'/uploads/deleted') }}">
+      @method('POST')
+
+      @csrf
+    <button type="submit" class="btn btn-primary">@lang('general.restoreFiles')</button>
+    </form>
+    @endcan
+    @endif
 </section>
 
 @endsection

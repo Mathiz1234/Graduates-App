@@ -17,6 +17,7 @@ class CreateScansTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('graduate_id')->index();
             $table->string('image_url');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('graduate_id')->references('id')->on('graduates')->onDelete('cascade');

@@ -34,4 +34,8 @@ Route::prefix('graduates')->group(function () {
     Route::delete('/deleted', 'GraduatesController@forceDelete');
 });
 
+Route::prefix('{graduate}/uploads')->group(function () {
+    Route::post('/deleted', 'GraduatesController@restoreFiles');
+});
+
 Route::resource('graduates', 'GraduatesController');
