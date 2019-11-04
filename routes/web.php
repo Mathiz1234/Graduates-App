@@ -26,6 +26,8 @@ Route::prefix('account')->group(function () {
 
 Auth::routes(['verify' => true]);
 
+Route::get('/uploads/{type}/{name}/{graduate}', 'UploadsController@index')->where('name', '.*')->middleware('can:show,graduate');
+
 Route::prefix('graduates')->group(function () {
     Route::get('/deleted', 'GraduatesController@showDeleted');
     Route::post('/deleted', 'GraduatesController@restore');

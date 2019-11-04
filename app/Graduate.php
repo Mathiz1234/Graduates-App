@@ -85,4 +85,24 @@ class Graduate extends Model
             'filename' => $fileOriginName
         ]);
     }
+
+    public function hasFile($name){
+
+        if($this->files()->where('image_url', $name)->first()){
+            return true;
+        }else{
+            false;
+        }
+
+    }
+
+    public function hasScan($name){
+
+        if($this->scans()->where('image_url', $name)->first()){
+            return true;
+        }else{
+            false;
+        }
+
+    }
 }

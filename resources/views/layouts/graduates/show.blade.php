@@ -12,7 +12,7 @@
 <section class="card my-2 shadow-sm rounded graduate-card">
     <div class="row no-gutters">
       <div class="col-4 col-lg-2 d-flex align-items-start graduate-card__avatar">
-        <img src="{{ asset('uploads/public/avatars/'.$graduate->avatar) }}" class="card-img p-1" alt="avatar">
+        <img src="{{ asset('uploads/avatars/'.$graduate->avatar.'/'.$graduate->id) }}" class="card-img p-1" alt="avatar">
       </div>
       <div class="col-8 col-lg-10 graduate-card__text">
         <div class="card-body">
@@ -46,7 +46,7 @@
         {{ __('List of .pdf files') }}:
     </a>
     @foreach ($graduate->files as $file)
-    <a href="{{ asset('uploads/public/files/'.$file->image_url) }}" target="_blank" class="list-group-item list-group-item-action">{{ $file->filename }}</a>
+    <a href="{{ asset('uploads/files/'.$file->image_url.'/'.$graduate->id) }}" target="_blank" class="list-group-item list-group-item-action">{{ $file->filename }}</a>
     @endforeach
 </div>
 
@@ -59,8 +59,8 @@
         <div class="card-body row">
           @foreach ($graduate->scans as $scan)
           <div class="col-12 col-lg-6 p-1 graduate-card__img d-flex align-items-center" style="max-height: 400px; overflow:hidden;">
-            <img src="{{ asset('uploads/public/scans/'.$scan->image_url) }}" class="graduate-card__img--file img-fluid rounded border border-success" alt="@lang('general.scan')">
-            <a class="graduate-card__img--link" href="{{ asset('uploads/public/scans/'.$scan->image_url) }}" target="_blank">@lang('general.click') <i class="fas fa-hand-pointer"></i></a>
+            <img src="{{ asset('uploads/scans/'.$scan->image_url.'/'.$graduate->id) }}" class="graduate-card__img--file img-fluid rounded border border-success" alt="@lang('general.scan')">
+            <a class="graduate-card__img--link" href="{{ asset('uploads/scans/'.$scan->image_url.'/'.$graduate->id) }}" target="_blank">@lang('general.click') <i class="fas fa-hand-pointer"></i></a>
           </div>
           @endforeach
         </div>
