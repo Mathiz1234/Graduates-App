@@ -21,6 +21,7 @@
             @else
                 <span class="badge badge-danger ml-1 text-uppercase">{{ __('unverified') }}</span></li>
             @endif
+        <li class="list-group-item ">{{ __('Account type') }}: {{ __(auth()->user()->getRoleName()) }}</li>
         <li class="list-group-item text-muted">{{ __('Account created at') }}: {{ auth()->user()->created_at }}</li>
         <li class="list-group-item"><a href="{{ url('account/change') }}" class="btn btn-primary text-uppercase">{{ __('Change personal data') }}</a></li>
         <li class="list-group-item"><a href="{{ url('account/change/password') }}" class="btn btn-primary text-uppercase">{{ __('Change password') }}</a></li>

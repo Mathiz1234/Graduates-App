@@ -17,6 +17,7 @@ class CreateScansTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('graduate_id')->index();
             $table->string('image_url');
+            $table->boolean('shared')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

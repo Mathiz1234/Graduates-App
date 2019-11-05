@@ -18,6 +18,7 @@ class CreateFilesTable extends Migration
             $table->unsignedInteger('graduate_id')->index();
             $table->string('image_url');
             $table->string('filename');
+            $table->boolean('shared')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

@@ -42,4 +42,18 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->email_verified_at != null;
     }
+
+    public function getRoleName(){
+        switch($this->role){
+            case 1: {
+                return 'user';
+            } break;
+            case 2: {
+                return 'moderator';
+            } break;
+            case 3: {
+                return 'admin';
+            } break;
+        }
+    }
 }

@@ -103,5 +103,9 @@
     "Personal data has been changed." : "Dane osobowe zostały zmienione.",
     "Last edited by": "Ostatnio aktualizowany przez",
     "Deleted by": "Usunięty przez",
-    "Restore deleted files!": "Przywrócono usunięte pliki!"
+    "Restore deleted files!": "Przywrócono usunięte pliki!",
+    "Account type" : "Typ konta",
+    "user" : "użytkownik",
+    "moderator" : "moderator",
+    "admin" : "administrator"
 }
