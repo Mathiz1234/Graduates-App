@@ -107,5 +107,11 @@
     "Account type" : "Typ konta",
     "user" : "użytkownik",
     "moderator" : "moderator",
-    "admin" : "administrator"
+    "admin" : "administrator",
+	"Sorry, the page you are looking for could not be found." : "Niestety nie można znaleźć strony, której szukasz.",
+	"Page Not Found":"Strony nie znaleziono",
+	"Go Home" : "Strona główna",
+	"Sorry, you are forbidden from accessing this page.":"Przepraszamy, ale nie masz dostępu do tej strony.",
+	"This action is unauthorized.":"Przepraszamy, ale nie masz dostępu do tej strony.",
+	"Forbidden":"Brak dostępu"
 }
