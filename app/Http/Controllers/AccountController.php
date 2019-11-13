@@ -54,7 +54,7 @@ class AccountController extends Controller
         if ($data['promotion'] == 'up') {
             if (DB::table('users')
                 ->where('id', $data['id'])
-                ->whereIn('role', [1, 2])
+                ->whereIn('role', [0, 1, 2])
                 ->increment('role')
             ) {
                 session()->flash('status', 'Successfully increased permissions!');
@@ -62,7 +62,7 @@ class AccountController extends Controller
         } elseif ($data['promotion'] == 'down') {
             if (DB::table('users')
                 ->where('id', $data['id'])
-                ->whereIn('role', [2, 3])
+                ->whereIn('role', [1, 2, 3])
                 ->decrement('role')
             ) {
                 session()->flash('status', 'Successfully decreased permissions!');

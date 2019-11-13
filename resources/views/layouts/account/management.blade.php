@@ -81,6 +81,9 @@
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     @switch ($user->role)
+                                        @case (0)
+                                        {{ __('Banned account') }}
+                                        @break
                                         @case (1)
                                         {{ __('User') }}
                                         @break
@@ -107,7 +110,7 @@
                                         @csrf
                                         <input type="hidden" name="promotion" value="down">
                                         <input type="hidden" name="id" value="{{ $user->id }}">
-                                        <button type="submit" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="{{ __('Decrease permissions') }}" {{ $user->role == 1 ? 'disabled' : '' }}>
+                                        <button type="submit" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="{{ __('Decrease permissions') }}" {{ $user->role == 0 ? 'disabled' : '' }}>
                                             <i class="fas fa-level-down-alt"></i>
                                         </button>
                                     </form>

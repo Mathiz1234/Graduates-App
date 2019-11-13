@@ -1,6 +1,16 @@
 @extends('layout')
 
 @section('content')
+
+@if (session('status'))
+    <div class="alert alert-danger alert-dismissible fade show my-1" role="alert">
+            <i class="fas fa-exclamation-circle"></i> {{ __(session('status')) }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="@lang('general.close')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+@endif
+
     <div class="row justify-content-center mt-2">
         <div class="col-md-8">
             <div class="card">

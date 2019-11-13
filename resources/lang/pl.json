@@ -36,6 +36,7 @@
     "Administrator account type" : " Typ konta administrator",
     "The administrator has moderator's authority and can permanently remove graduates from the database and may grant authority to other users." : "Administrator ma uprawnienia moderatora i może trwale usunąć absolwentów z bazy danych i może udzielić uprawnień innym użytkownikom.",
     "List of users" : "Spis użytkowników",
+    "Banned account" : "Konto zablokowane",
     "User" : "Użytkownik",
     "Moderator" : "Moderator",
     "Administrator" : "administrator",
@@ -113,5 +114,6 @@
 	"Go Home" : "Strona główna",
 	"Sorry, you are forbidden from accessing this page.":"Przepraszamy, ale nie masz dostępu do tej strony.",
 	"This action is unauthorized.":"Przepraszamy, ale nie masz dostępu do tej strony.",
-	"Forbidden":"Brak dostępu"
+    "Forbidden":"Brak dostępu",
+    "Your account has been blocked.": "Twoje konto zostało zablokowane."
 }
