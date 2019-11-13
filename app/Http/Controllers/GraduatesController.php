@@ -140,14 +140,13 @@ class GraduatesController extends Controller
                 }
             }
             DB::commit();
-        } catch (\PDOException $e) {
+        } catch (\PDOException $err) {
 
             DB::rollBack();
 
             if ($avatarName != 'default.png' && Storage::exists('avatars/' . $avatarName)) {
                 Storage::delete('avatars/' . $avatarName);
             }
-
 
             if (isset($scansNames)) {
                 if (count($scansNames) != 0) {
@@ -161,7 +160,7 @@ class GraduatesController extends Controller
                 }
             }
 
-            //dd($e);
+            //dd($err);
 
             return back()->withInput();
         }
@@ -264,7 +263,6 @@ class GraduatesController extends Controller
                 //creating graduate
                 $graduate->update($data);
 
-
                 //old files
                 if ($request->has('old-files')) {
                     $oldFiles = [];
@@ -288,10 +286,10 @@ class GraduatesController extends Controller
                     foreach ($oldFiles as $key => $value) {
                         if ($value == false) {
                             $file = File::find($key);
-                            if (Storage::exists('files/' . $file->image_url)) {
+                            /*if (Storage::exists('files/' . $file->image_url)) {
                                 //$storageArray = Arr::prepend($storageArray, 'files/' . $file->image_url);
                                 //Storage::delete('files/' . $file->image_url);
-                            }
+                            }*/
                             $file->delete();
                         }
                     }
@@ -320,10 +318,10 @@ class GraduatesController extends Controller
                     foreach ($oldScans as $key => $value) {
                         if ($value == false) {
                             $scan = Scan::find($key);
-                            if (Storage::exists('scans/' . $scan->image_url)) {
+                            /*if (Storage::exists('scans/' . $scan->image_url)) {
                                 //$storageArray = Arr::prepend($storageArray, 'scans/' . $scan->image_url);
                                 //Storage::delete('scans/' . $scan->image_url);
-                            }
+                            }*/
                             $scan->delete();
                         }
                     }
@@ -353,14 +351,13 @@ class GraduatesController extends Controller
             // foreach ($storageArray as $string) {
             //     Storage::delete($string);
             // }
-        } catch (\PDOException $e) {
+        } catch (\PDOException $err) {
 
             DB::rollBack();
 
             if ($request->has('if-avatar-deleted') && $avatarName != 'default.png' && Storage::exists('avatars/' . $avatarName)) {
                 Storage::delete('avatars/' . $avatarName);
             }
-
 
             if (isset($scansNames)) {
                 if (count($scansNames) != 0) {
@@ -374,7 +371,7 @@ class GraduatesController extends Controller
                 }
             }
 
-            //dd($e);
+            //dd($err);
 
             return back()->withInput();
         }
@@ -407,7 +404,7 @@ class GraduatesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function showDeleted(Request $request)
+    public function showDeleted()
     {
         $this->authorize('forceDeleted', Graduate::class);
 
@@ -434,7 +431,8 @@ class GraduatesController extends Controller
                 'id' => ['required', 'integer']
             ]);
 
-            if ($graduate = Graduate::findWithDeleted($data['id'])) {
+            $graduate = Graduate::findWithDeleted($data['id']);
+            if ($graduate) {
                 if ($graduate->trashed()) {
                     $graduate->restore();
                 }
@@ -451,7 +449,6 @@ class GraduatesController extends Controller
         $graduate->scans()->restore();
 
         return redirect('/graduates/' . $graduate->id)->with('status', 'Restore deleted files!');
-
     }
 
     /**
@@ -469,7 +466,8 @@ class GraduatesController extends Controller
                 'id' => ['required', 'integer']
             ]);
 
-            if ($graduate = Graduate::withTrashed()->with(['scans', 'files'])->find($data['id'])) {
+            $graduate = Graduate::withTrashed()->with(['scans', 'files'])->find($data['id']);
+            if ($graduate) {
 
                 if ($graduate->trashed()) {
 

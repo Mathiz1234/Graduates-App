@@ -45,15 +45,15 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getRoleName(){
         switch($this->role){
-            case 1: {
+            case 1:
                 return 'user';
-            } break;
-            case 2: {
+             break;
+            case 2:
                 return 'moderator';
-            } break;
-            case 3: {
+             break;
+            case 3:
                 return 'admin';
-            } break;
+             break;
         }
     }
 }

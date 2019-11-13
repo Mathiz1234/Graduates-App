@@ -10,7 +10,7 @@ class UploadsController extends Controller
     public function index($type, $name, Graduate $graduate)
     {
         switch($type){
-            case 'avatars': {
+            case 'avatars':
 
                 if ($graduate->avatar == $name){
                     return response()->file(storage_path('app/uploads/avatars/'.$name));
@@ -18,8 +18,8 @@ class UploadsController extends Controller
                     abort(404);
                 }
 
-            } break;
-            case 'files': {
+                break;
+            case 'files':
 
                 if ($graduate->hasFile($name)){
                     return response()->file(storage_path('app/uploads/files/'.$name));
@@ -27,8 +27,8 @@ class UploadsController extends Controller
                     abort(404);
                 }
 
-            } break;
-            case 'scans': {
+                break;
+            case 'scans':
 
                 if ($graduate->hasScan($name)){
                     return response()->file(storage_path('app/uploads/scans/'.$name));
@@ -36,11 +36,10 @@ class UploadsController extends Controller
                     abort(404);
                 }
 
-            }break;
-            default: {
+                break;
+            default:
                 abort(404);
-            }
-        }
 
+        }
     }
 }

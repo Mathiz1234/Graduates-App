@@ -93,7 +93,6 @@ class Graduate extends Model
         }else{
             false;
         }
-
     }
 
     public function hasScan($name){
@@ -103,6 +102,5 @@ class Graduate extends Model
         }else{
             false;
         }
-
     }
 }
