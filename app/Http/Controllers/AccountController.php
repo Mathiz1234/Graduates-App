@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
@@ -113,6 +114,9 @@ class AccountController extends Controller
                     ->withErrors($validator)
                     ->withInput();
             } else {
+
+                Auth::logoutOtherDevices($data['old-password']);
+
                 auth()->user()->fill([
                     'password' => Hash::make($data['new-password'])
                 ])->save();
