@@ -84,11 +84,8 @@
 
     @if (count($graduates) == 0)
 
-    <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+    <div class="alert alert-danger show mt-2" role="alert">
         <strong>{{ __('No search results') }}</strong> {{ __('Try to search something else') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="@lang('general.close')">
-          <span aria-hidden="true">&times;</span>
-        </button>
     </div>
 
     @endif
