@@ -49,8 +49,8 @@
                 @endif
             </div>
             <div class="custom-control custom-checkbox">
-                <input name="shared" type="checkbox" class="custom-control-input" id="ifShared" {{ $graduate->shared ? 'checked' : ''}}>
-                <label class="custom-control-label" for="ifShared">{{ __('If checked graduate will be shared') }}</label>
+                <input name="shared" type="checkbox" class="custom-control-input" id="ifSharedWhileEditing" {{ $graduate->shared ? 'checked' : ''}}>
+                <label class="custom-control-label" for="ifSharedWhileEditing">{{ __('If checked graduate will be shared') }}</label>
               </div>
 
             <hr>
@@ -58,7 +58,7 @@
                 <header><h4 class="text-muted">{{__('Avatar')}} :</h4></header>
                 <div class="w-100"></div>
                 <div class="col-4 col-lg-2 d-flex align-items-start graduate-card__avatar m-2">
-                    <img src="{{ asset('uploads/avatars/'.$graduate->avatar.'/'.$graduate->id) }}" class="card-img p-1" alt="avatar">
+                    <img src="{{ asset('uploads/'.$graduate->id.'/avatars/'.$graduate->avatar) }}" class="card-img p-1" alt="avatar">
                 </div>
                 <div class="d-flex align-items-center justify-content-center m-2">
                     <button type="button" id="delete_avatar" class="btn btn-danger mt-1"><i class="fas fa-trash"></i> {{ __('Delete') }}</button>
@@ -67,7 +67,7 @@
             </section>
 
             <div id="new-avatar-section" style="display: none;" class="form-group">
-                    <label for="inputfile">{{ __('Choose custom avatar') }} (max. 2MB, 100x100px)</label>
+                    <label for="inputfile">{{ __('Choose custom avatar') }} (max. 4MB, 100x100px)</label>
                     <input name="avatar" type="file" class="form-control-file{{ $errors->has('avatar') ? ' is-invalid' : '' }}" id="inputfile">
                     @if ($errors->has('avatar'))
                     <span class="invalid-feedback" role="alert">
@@ -84,7 +84,11 @@
                 </a>
                 @foreach ($graduate->files as $file)
                 <li class="list-group-item list-group-item-action">
-                <a href="{{ asset('uploads/files/'.$file->image_url.'/'.$graduate->id) }}" target="_blank">{{ $file->filename }}</a>
+                <a href="{{ asset('uploads/'.$graduate->id.'/files/'.$file->image_url) }}" target="_blank">{{ $file->filename }}</a>
+                <div class="mx-2 form-check form-check-inline">
+                  <input name="old-files-shared[{{ $file->id }}]" class="form-check-input" type="checkbox" id="shared_file_{{$loop->iteration}}" {{ $file->shared ? 'checked' : ''}}>
+                  <label class="form-check-label" for="shared_file_{{$loop->iteration}}">{{ __('Shared')}}</label>
+                </div>
                 <button type="button" class="btn btn-danger ml-1 files-delete-button"><i class="fas fa-trash"></i> {{ __('Delete') }}</button>
                 <input type="text" name="old-files[]" value="{{$file->id}}" hidden>
                 </li>
@@ -101,10 +105,16 @@
                 <div class="card graduate-card">
                     <div class="card-body row">
                     @foreach ($graduate->scans as $scan)
-                    <div style="max-height: 400px; overflow:hidden; display:flex;" class="col-12 col-lg-6 p-1 graduate-card__img align-items-center">
-                        <img src="{{ asset('uploads/scans/'.$scan->image_url.'/'.$graduate->id) }}" class="graduate-card__img--file img-fluid rounded border border-success" alt="@lang('general.scan')">
-                        <a class="graduate-card__img--link graduate-card_img--delete" href="#">{{__('Delete')}}<i class="fas fa-trash"></i></a>
-                        <input type="text" name="old-scans[]" value="{{$scan->id}}" hidden>
+                    <div style="max-height: 400px; overflow:hidden; display:flex;" class="col-12 col-lg-6 p-1 align-items-start flex-column graduate-card__container">
+                      <div style="max-height: 400px; overflow:hidden; display:flex;" class="graduate-card__img align-items-center">
+                          <img src="{{ asset('uploads/'.$graduate->id.'/scans/'.$scan->image_url  ) }}" class="graduate-card__img--file img-fluid rounded border border-success" alt="@lang('general.scan')">
+                          <a class="graduate-card__img--link graduate-card_img--delete" href="#">{{__('Delete')}}<i class="fas fa-trash"></i></a>
+                          <input type="text" name="old-scans[]" value="{{$scan->id}}" hidden>
+                      </div>
+                      <div class="form-check align-self-center my-2">
+                        <input name="old-scans-shared[{{ $scan->id }}]" class="form-check-input" type="checkbox" id="shared_scan_{{$loop->iteration}}" {{ $scan->shared ? 'checked' : ''}}>
+                        <label class="form-check-label" for="shared_scan_{{$loop->iteration}}">{{ __('Shared')}}</label>
+                      </div>
                     </div>
                     @endforeach
                     </div>
@@ -113,7 +123,7 @@
             @endif
 
             <div class="form-group mt-3">
-              <p>{{ __('Choose files/scans (pdf, jpeg, png, bmp, gif, or svg)') }} max. 4MB</p>
+              <p>{{ __('Choose files/scans (pdf, jpeg, png, bmp, gif, or svg)') }} max. 10MB</p>
               <div class="input-group mb-2 increment" >
                   <input type="file" name="scans[]" class="form-control">
                   <div class="input-group-btn">

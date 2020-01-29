@@ -115,5 +115,7 @@
 	"Sorry, you are forbidden from accessing this page.":"Przepraszamy, ale nie masz dostępu do tej strony.",
 	"This action is unauthorized.":"Przepraszamy, ale nie masz dostępu do tej strony.",
     "Forbidden":"Brak dostępu",
-    "Your account has been blocked.": "Twoje konto zostało zablokowane."
+    "Your account has been blocked.": "Twoje konto zostało zablokowane.",
+    "Contact the school office for more information and scans of graduate." : "Skontaktuj się z sekretariatem szkoły, aby uzyskać więcej informacji i skany absolwenta.",
+    "Note: images and scans with a text or border color blue are shared (available to those not logged in)." : "Zauważ: zdjęcia oraz skany o kolorze tekstu lub obramowania niebieskiego są udostępnione (widoczne dla zalogowanych)."
 }

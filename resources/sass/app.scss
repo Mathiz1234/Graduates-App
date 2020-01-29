@@ -141,6 +141,15 @@ body {
 
   }
 }
+
+.shared {
+  color: $indigo;
+}
+
+.border-shared {
+  border-width:5px !important;
+  border-color:$indigo !important;
+}
 /*--------Go up button/circle buttons---------*/
 .btn-circle {
   // width: 30px;

@@ -165,11 +165,39 @@ $(document).ready(function(){
         e.preventDefault();
         $('html').css('scroll-behavior', 'auto');
         $(this).next('input').attr('value', 'false');
-        $(this).parent().hide('fast', function(){
+        $(this).parents('.graduate-card__container').hide('fast', function(){
             setTimeout(function(){
                 $('html').css('scroll-behavior', 'smooth');
             }, 1000);
         });
     });
+
+});
+
+//Checkbox while editing
+$(document).ready(function(){
+
+    const mainShareCheckbox = $('#ifSharedWhileEditing');
+
+    if(mainShareCheckbox.length > 0){
+
+
+        function checkEditingbox(e){
+            if(!this.checked) {
+                $('input[type=checkbox]').prop('checked', false).prop('disabled', true);
+                $(e.target).prop('disabled', false);
+            }else{
+                $('input[type=checkbox]').prop('checked', true).prop('disabled', false);
+            }
+        }
+
+        if(!mainShareCheckbox.is(':checked')){
+            $('input[type=checkbox]').prop('checked', false).prop('disabled', true);
+            mainShareCheckbox.prop('disabled', false);
+        }
+
+        mainShareCheckbox.on('change', checkEditingbox);
+
+    }
 
 });

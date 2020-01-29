@@ -12,7 +12,7 @@
 <section class="card my-2 shadow-sm rounded graduate-card">
     <div class="row no-gutters">
       <div class="col-4 col-lg-2 d-flex align-items-start graduate-card__avatar">
-        <img src="{{ asset('uploads/avatars/'.$graduate->avatar.'/'.$graduate->id) }}" class="card-img p-1" alt="avatar">
+        <img src="{{ asset('uploads/'.$graduate->id.'/avatars/'.$graduate->avatar) }}" class="card-img p-1" alt="avatar">
       </div>
       <div class="col-8 col-lg-10 graduate-card__text">
         <div class="card-body">
@@ -46,7 +46,9 @@
         {{ __('List of .pdf files') }}:
     </a>
     @foreach ($graduate->files as $file)
-    <a href="{{ asset('uploads/files/'.$file->image_url.'/'.$graduate->id) }}" target="_blank" class="list-group-item list-group-item-action">{{ $file->filename }}</a>
+      @if ($file->shared || auth()->user())
+      <a href="{{ asset('uploads/'.$graduate->id.'/files/'.$file->image_url) }}" target="_blank" class="list-group-item list-group-item-action {{ $file->shared ? 'shared' : '' }} ">{{ $file->filename }}</a>
+      @endif
     @endforeach
 </div>
 
@@ -58,17 +60,38 @@
     <div class="card graduate-card">
         <div class="card-body row">
           @foreach ($graduate->scans as $scan)
-          <div class="col-12 col-lg-6 p-1 graduate-card__img d-flex align-items-center" style="max-height: 400px; overflow:hidden;">
-            <img src="{{ asset('uploads/scans/'.$scan->image_url.'/'.$graduate->id) }}" class="graduate-card__img--file img-fluid rounded border border-success" alt="@lang('general.scan')">
-            <a class="graduate-card__img--link" href="{{ asset('uploads/scans/'.$scan->image_url.'/'.$graduate->id) }}" target="_blank">@lang('general.click') <i class="fas fa-hand-pointer"></i></a>
-          </div>
+            @if ($scan->shared || auth()->user())
+            <div class="col-12 col-lg-6 p-1 graduate-card__img d-flex align-items-center" style="max-height: 400px; overflow:hidden;">
+              <img src="{{ asset('uploads/'.$graduate->id.'/scans/'.$scan->image_url) }}" class="graduate-card__img--file img-fluid rounded border border-{{ $scan->shared ? 'shared' : 'success' }} " alt="@lang('general.scan')">
+              <a class="graduate-card__img--link" href="{{ asset('uploads/'.$graduate->id.'/scans/'.$scan->image_url) }}" target="_blank">@lang('general.click') <i class="fas fa-hand-pointer"></i></a>
+            </div>
+            @endif
           @endforeach
         </div>
       </div>
 </section>
 @endif
 
-<section class="d-flex my-2 justify-content-center">
+@if(($graduate->files->count() + $graduate->scans->count()) <= 0)
+
+<section>
+  <div class="alert alert-primary text-center my-1" role="alert">
+        {{ __('Contact the school office for more information and scans of graduate.') }}
+  </div>
+</section>
+
+@elseif(auth()->user())
+
+<section>
+    <div class="alert alert-primary text-center my-1" role="alert">
+          {{ __('Note: images and scans with a text or border color blue are shared (available to those not logged in).') }}
+    </div>
+</section>
+
+@endif
+
+
+<section class="d-flex my-2 justify-content-center align-items-center">
     <a href="{{ url('graduates') }}" class="btn btn-primary mx-2">@lang('general.back')</a>
     @can('change', App\Graduate::class)
     <a href="{{ url('graduates/'.$graduate->id.'/edit') }}" class="btn btn-primary mx-2">@lang('general.edit')</a>

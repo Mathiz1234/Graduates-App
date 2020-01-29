@@ -26,6 +26,10 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot();
+
+        Route::bind('also_delete_graduate', function ($id) {
+            return \App\Graduate::withTrashed()->find($id);
+        });
     }
 
     /**

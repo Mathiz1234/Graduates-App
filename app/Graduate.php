@@ -103,4 +103,12 @@ class Graduate extends Model
             false;
         }
     }
+
+    public function fileSharedOrAuth($name){
+        return auth()->user() || $this->files()->where('image_url', $name)->where('shared', 1)->first();
+    }
+
+    public function scanSharedOrAuth($name){
+        return auth()->user() || $this->scans()->where('image_url', $name)->where('shared', 1)->first();
+    }
 }

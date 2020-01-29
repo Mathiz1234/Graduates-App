@@ -12,7 +12,7 @@ class File extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['image_url', 'filename'];
+    protected $fillable = ['image_url', 'filename', 'shared'];
 
     public function graduate()
     {

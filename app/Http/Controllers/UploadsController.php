@@ -7,7 +7,7 @@ use App\Graduate;
 
 class UploadsController extends Controller
 {
-    public function index($type, $name, Graduate $graduate)
+    public function index(Graduate $graduate, $type, $name)
     {
         switch($type){
             case 'avatars':
@@ -21,7 +21,7 @@ class UploadsController extends Controller
                 break;
             case 'files':
 
-                if ($graduate->hasFile($name)){
+                if ($graduate->hasFile($name) && $graduate->fileSharedOrAuth($name)){
                     return response()->file(storage_path('app/uploads/files/'.$name));
                 }else{
                     abort(404);
@@ -30,7 +30,7 @@ class UploadsController extends Controller
                 break;
             case 'scans':
 
-                if ($graduate->hasScan($name)){
+                if ($graduate->hasScan($name) && $graduate->scanSharedOrAuth($name)){
                     return response()->file(storage_path('app/uploads/scans/'.$name));
                 }else{
                     abort(404);

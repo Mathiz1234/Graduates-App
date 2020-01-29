@@ -91,9 +91,9 @@ class GraduatesController extends Controller
 
                     'description' => ['string', 'nullable'],
 
-                    'avatar' => ['image', 'max:2048'],
+                    'avatar' => ['image', 'max:4096'],
 
-                    'scans.*' => ['mimes:pdf,jpg,jpeg,png,bmp,gif,svg', 'max:4096']
+                    'scans.*' => ['mimes:pdf,jpg,jpeg,png,bmp,gif,svg', 'max:10240']
 
                 ]);
 
@@ -224,9 +224,9 @@ class GraduatesController extends Controller
 
                     'description' => ['string', 'nullable'],
 
-                    'avatar' => ['image', 'max:2048'],
+                    'avatar' => ['image', 'max:4096'],
 
-                    'scans.*' => ['mimes:pdf,jpg,jpeg,png,bmp,gif,svg', 'max:4096']
+                    'scans.*' => ['mimes:pdf,jpg,jpeg,png,bmp,gif,svg', 'max:10240']
                 ]);
 
                 $data = \Illuminate\Support\Arr::except($validated, ['avatar', 'scans']);
@@ -255,8 +255,10 @@ class GraduatesController extends Controller
                 //checkbox
                 if ($request->has('shared')) {
                     $data['shared'] = true;
+                    $sharedGraduateFlag = true;
                 } else {
                     $data['shared'] = false;
+                    $sharedGraduateFlag = false;
                 }
 
                 $data['edited_by'] = auth()->user()->id;
@@ -277,6 +279,15 @@ class GraduatesController extends Controller
                             foreach ($oldFiles as $key => $value) {
                                 if ($key == $file) {
                                     $oldFiles[$key] = true;
+                                    if ($sharedGraduateFlag) {
+                                        if ($request->input('old-files-shared.'.$key) !== null) {
+                                            $graduate->files()->find($key)->update(['shared' => 1]);
+                                        } else {
+                                            $graduate->files()->find($key)->update(['shared' => 0]);
+                                        }
+                                    }else{
+                                        $graduate->files()->update(['shared' => 0]);
+                                    }
                                     break;
                                 }
                             }
@@ -309,6 +320,15 @@ class GraduatesController extends Controller
                             foreach ($oldScans as $key => $value) {
                                 if ($key == $scan) {
                                     $oldScans[$key] = true;
+                                    if ($sharedGraduateFlag) {
+                                        if ($request->input('old-scans-shared.'.$key) !== null) {
+                                            $graduate->scans()->find($key)->update(['shared' => 1]);
+                                        } else {
+                                            $graduate->scans()->find($key)->update(['shared' => 0]);
+                                        }
+                                    }else{
+                                        $graduate->scans()->update(['shared' => 0]);
+                                    }
                                     break;
                                 }
                             }

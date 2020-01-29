@@ -52,7 +52,7 @@
                 <label class="custom-control-label" for="ifShared">{{ __('If checked graduate will be shared') }}</label>
               </div>
             <div class="form-group">
-                <label for="inputfile">{{ __('Choose custom avatar') }} (max. 2MB, 100x100px)</label>
+                <label for="inputfile">{{ __('Choose custom avatar') }} (max. 4MB, 100x100px)</label>
                 <input name="avatar" type="file" class="form-control-file{{ $errors->has('avatar') ? ' is-invalid' : '' }}" id="inputfile">
                 @if ($errors->has('avatar'))
                 <span class="invalid-feedback" role="alert">
@@ -72,7 +72,7 @@
             </div> --}}
 
             <div class="form-group">
-              <p>{{ __('Choose files/scans (pdf, jpeg, png, bmp, gif, or svg)') }} max. 4MB</p>
+              <p>{{ __('Choose files/scans (pdf, jpeg, png, bmp, gif, or svg)') }} max. 10MB</p>
               <div class="input-group mb-2 increment" >
                   <input type="file" name="scans[]" class="form-control">
                   <div class="input-group-btn">

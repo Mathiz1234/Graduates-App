@@ -12,7 +12,7 @@ class Scan extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['image_url'];
+    protected $fillable = ['image_url', 'shared'];
 
 
     public function graduate()
