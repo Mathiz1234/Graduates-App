@@ -108,7 +108,7 @@
         <footer>
           <div class="footer mt-auto py-3 border shadow-sm">
             <div class="container text-center">
-            <p class="text-muted m-0"><i class="mr-2 fas fa-copyright"></i>{{ __('Graduate system 2019 All rights reserved. Author: ') }} <a data-toggle="tooltip" data-html="true" title="<em> {{ __('Contact email:') }} mateusz.sutor.contact@gmail.com </em>"> Mateusz Sutor </a> <a href="{{route('rules')}}" target="_blank">@lang('general.rules')</a></p>
+            <p class="text-muted m-0"><i class="mr-2 fas fa-copyright"></i>{{ __('Graduate system 2020 | All rights reserved | Author: ') }} <a style="cursor: pointer;" data-toggle="tooltip" data-html="true" title="<em> {{ __('Contact email:') }} mateusz.sutor.contact@gmail.com </em>"> <u><em>Mateusz Sutor</em></u> </a> | <a href="{{route('rules')}}" target="_blank">@lang('general.rules')</a></p>
             </div>
          </div>
         </footer>
