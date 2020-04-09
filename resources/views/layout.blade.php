@@ -59,7 +59,7 @@
                             <button type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               @lang('general.account')
                             </button>
-                            <div class="dropdown-menu dropdown-menu-lg-right">
+                            <div class="dropdown-menu dropdown-menu-lg-right" style="z-index: 10000;">
                             <a class="dropdown-item" href="{{ url('account') }}">@lang('general.profile')</a>
                               @if(auth()->user()->isAdmin())
                               <a class="dropdown-item" href="{{ url('account/management') }}">@lang('general.menagement')</a>
