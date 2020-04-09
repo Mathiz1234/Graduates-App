@@ -39,3 +39,8 @@ Route::prefix('{graduate}/uploads')->group(function () {
 });
 
 Route::resource('graduates', 'GraduatesController');
+
+
+// Route::get('/test', function() {
+//     phpinfo();
+// });
