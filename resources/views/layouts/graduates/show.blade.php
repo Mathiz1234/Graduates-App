@@ -72,20 +72,20 @@
 </section>
 @endif
 
-@if(($graduate->files->count() + $graduate->scans->count()) <= 0)
-
-<section>
-  <div class="alert alert-primary text-center my-1" role="alert">
-        {{ __('Contact the school office for more information and scans of graduate.') }}
-  </div>
-</section>
-
-@elseif(auth()->user())
+@if(auth()->user())
 
 <section>
     <div class="alert alert-primary text-center my-1" role="alert">
           {{ __('Note: images and scans with a text or border color blue are shared (available to those not logged in).') }}
     </div>
+</section>
+
+@else
+
+<section>
+  <div class="alert alert-primary text-center my-1" role="alert">
+        {{ __('Contact the school office for more information and scans of graduate.') }}
+  </div>
 </section>
 
 @endif

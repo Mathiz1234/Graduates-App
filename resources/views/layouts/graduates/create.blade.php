@@ -80,9 +80,13 @@
                   </div>
               </div>
               <div id="clone" hidden>
-                  <div class="input-group control-group mt-2">
+                  <div class="input-group control-group mt-2 cloneDiv">
                     <div class="input-group-btn">
                       <button class="btn btn-danger removeFormButton" type="button"><i class="fas fa-trash-alt"></i> {{ __('Remove') }}</button>
+                    </div>
+                    <div class="custom-control custom-checkbox insideCheckboxDiv">
+                      <input type="checkbox" name="scansShared[]" class="custom-control-input" id="insideCheckbox">
+                      <label class="custom-control-label" for="insideCheckbox"><span class="d-none d-md-block">{{ __('Shared') }}</span></label>
                     </div>
                   </div>
               </div>

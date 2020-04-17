@@ -122,16 +122,18 @@ class GraduatesController extends Controller
 
                 //scans
                 if ($request->has('scans')) {
-                    foreach ($validated['scans'] as $scan) {
+                    foreach ($validated['scans'] as $key => $scan) {
                         if ($scan->isValid()) {
+                            $ifShared = false;
                             $scanName = Scan::getName($scan);
                             array_push($scansNames, $scanName);
+                            if($request->has('scansShared.'.$key)) $ifShared = true;
                             if ($scan->extension() == 'pdf') {
                                 $scan->storeAs('files', $scanName);
-                                $graduate->addFile($scanName, $scan->getClientOriginalName());
+                                $graduate->addFile($scanName, $scan->getClientOriginalName(), $ifShared);
                             } else {
                                 $scan->storeAs('scans', $scanName);
-                                $graduate->addScan($scanName);
+                                $graduate->addScan($scanName, $ifShared);
                             }
                         } else {
                             throw new Exception('Uploaded scan is invalid');
@@ -349,16 +351,18 @@ class GraduatesController extends Controller
 
                 // new scans
                 if ($request->has('scans')) {
-                    foreach ($validated['scans'] as $scan) {
+                    foreach ($validated['scans'] as $key => $scan) {
                         if ($scan->isValid()) {
+                            $ifShared = false;
                             $scanName = Scan::getName($scan);
                             array_push($scansNames, $scanName);
+                            if($request->has('scansShared.'.$key)) $ifShared = true;
                             if ($scan->extension() == 'pdf') {
                                 $scan->storeAs('files', $scanName);
-                                $graduate->addFile($scanName, $scan->getClientOriginalName());
+                                $graduate->addFile($scanName, $scan->getClientOriginalName(), $ifShared);
                             } else {
                                 $scan->storeAs('scans', $scanName);
-                                $graduate->addScan($scanName);
+                                $graduate->addScan($scanName, $ifShared);
                             }
                         } else {
                             throw new Exception('Uploaded scan is invalid');

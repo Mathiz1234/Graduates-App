@@ -73,16 +73,20 @@ class Graduate extends Model
         return Graduate::withTrashed()->find($id);
     }
 
-    public function addScan($filename)
+    public function addScan($filename, $shared)
     {
-        return $this->scans()->create(['image_url' => $filename]);
+        return $this->scans()->create([
+            'image_url' => $filename,
+            'shared' => $shared
+            ]);
     }
 
-    public function addFile($filename, $fileOriginName)
+    public function addFile($filename, $fileOriginName, $shared)
     {
         return $this->files()->create([
             'image_url' => $filename,
-            'filename' => $fileOriginName
+            'filename' => $fileOriginName,
+            'shared' => $shared
         ]);
     }
 

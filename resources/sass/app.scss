@@ -175,6 +175,19 @@ input[type='file']{
   line-height: 200%;
 }
 
+.cloneDiv{
+  position: relative;
+  height: 36px;
+
+  .insideCheckboxDiv {
+    position: absolute;
+    right: 90px;
+    top: 6px;
+    text-align: center;
+    z-index: 100000;
+  }
+}
+
 /*-----------Sliders--------------*/
 
 .carousel-inner{

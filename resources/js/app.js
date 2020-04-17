@@ -105,6 +105,8 @@ $(document).ready(function(){
 //Create view
 $(document).ready(function() {
 
+    let checkboxID = 0;
+
     $(".addFormButton").click(function(){
         let path = $(".increment").find('input').val();
         if(path!='')
@@ -116,6 +118,15 @@ $(document).ready(function() {
             content.insertAfter(".increment");
 
             $(".increment").find('input').val('');
+
+            content.find('.insideCheckboxDiv>input').attr('id','insideCheckbox'+checkboxID);
+            content.find('.insideCheckboxDiv>label').attr('for','insideCheckbox'+checkboxID);
+
+            content.find('.insideCheckboxDiv>input').attr('name','scansShared['+checkboxID+']');
+
+            content.closest('div').find('input[type=file]').attr('name','scans['+checkboxID+']');
+
+            checkboxID++;
 
             console.log('add file');
 
@@ -177,7 +188,8 @@ $(document).ready(function(){
 //Checkbox while editing
 $(document).ready(function(){
 
-    const mainShareCheckbox = $('#ifSharedWhileEditing');
+    const mainShareCheckbox = $('#ifShared');
+
 
     if(mainShareCheckbox.length > 0){
 
@@ -189,11 +201,13 @@ $(document).ready(function(){
             }else{
                 $('input[type=checkbox]').prop('checked', true).prop('disabled', false);
             }
+            $('#insideCheckbox').prop('checked', false);
         }
 
         if(!mainShareCheckbox.is(':checked')){
             $('input[type=checkbox]').prop('checked', false).prop('disabled', true);
             mainShareCheckbox.prop('disabled', false);
+            $('#insideCheckbox').prop('checked', false);
         }
 
         mainShareCheckbox.on('change', checkEditingbox);
